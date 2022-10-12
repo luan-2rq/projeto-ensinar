@@ -1,0 +1,49 @@
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+  <section class="vh-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card border border-secondary" style="border-radius: 0">
+            <div class="card-body p-5 text-center">
+
+              <h3 class="mb-4">PLATAFORMA <br> ENSINAR</h3>
+              <h5 class="mb-5">Sign In</h5>
+
+              <div class="form-outline mb-4">
+                <label class="form-label d-flex justify-content-start" for="floatingEmptyPlaintextInput" style="margin-bottom: 0">Email address</label>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control form-control-lg", style: "border-radius: 0" %>
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label d-flex justify-content-start" for="floatingEmptyPlaintextInput" style="margin-bottom: 0">Password</label>
+                <%= f.password_field :password, autocomplete: "current-password", class: "form-control form-control-lg", style: "border-radius: 0" %>
+              </div>
+
+              <div class="d-flex flex-row justify-content-between align-items-center">
+                  <%= render "devise/shared/links" %>
+                  <div class="actions">
+                    <%= f.submit "Sign In", class: "btn btn-primary btn-lg btn-block", style: "background-color: #18A0FB; border: none; border-radius: 10px; align-items: flex-end;" %>
+                  </div>
+
+              </div>
+
+              <div class="d-flex flex-row justify-content-between align-items-start">
+                <% if devise_mapping.rememberable? %>
+                  <div class="field">
+                    <%= f.check_box :remember_me %>
+                    <%= f.label :remember_me %>
+                  </div>
+                <% end %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+<% end %>
+
+

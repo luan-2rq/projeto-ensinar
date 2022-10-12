@@ -1,0 +1,53 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+
+  <section class="vh-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card border border-secondary" style="border-radius: 0">
+            <div class="card-body p-5 text-center">
+
+              <h3 class="mb-4">PLATAFORMA <br> ENSINAR</h3>
+              <h5 class="mb-5">Sign Up</h5>
+
+              <div class="form-outline mb-2">
+                <label class="form-label d-flex justify-content-start" for="floatingEmptyPlaintextInput" style="margin-bottom: 0">Full name</label>
+                <%= f.text_field :name, autofocus: true, class: "form-control form-control-lg", style: "border-radius: 0" %>
+              </div>
+
+              <div class="form-outline mb-2">
+                <label class="form-label d-flex justify-content-start" for="floatingEmptyPlaintextInput" style="margin-bottom: 0">Email address</label>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control form-control-lg", style: "border-radius: 0" %>
+              </div>
+
+              <div class="form-outline mb-2">
+              <div class="d-flex flex-row" style="margin-bottom: 0">
+                <label class="form-label justify-content-start" for="floatingEmptyPlaintextInput" style="margin-bottom: 0">Create password</label>
+                <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em>
+              </div>
+                <% end %><br />
+                <%= f.password_field :password, autocomplete: "new-password", class: "form-control form-control-lg", style:"border-radius: 0"%>
+              </div>
+
+              <div class="form-outline mb-2">
+                <label class="form-label d-flex justify-content-start" for="floatingEmptyPlaintextInput" style="margin-bottom: 0">Repeat password</label>
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control form-control-lg", style: "border-radius: 0" %>
+              </div>
+
+              <div class="d-flex flex-row justify-content-between align-items-center">
+                <%= render "devise/shared/links" %>
+                <%= f.submit "Sign up", class: "btn btn-primary btn-lg btn-block", style: "background-color: #18A0FB; border: none; border-radius: 10px; align-items: flex-end;" %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<% end %>
