@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Close ended questions</h1>
+
+<div id="close_ended_questions">
+  <% @close_ended_questions.each do |close_ended_question| %>
+    <%= render close_ended_question %>
+    <p>
+      <%= link_to "Show this close ended question", close_ended_question %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New close ended question", new_close_ended_question_path %>
