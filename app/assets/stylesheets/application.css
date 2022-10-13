@@ -13,7 +13,6 @@
  *= require_tree .
  *= require_self
  */
- @import "./base/variables.scss";
  @import url(./config.css);
  @import url(./global.css);
  @import url(./custom.css);
