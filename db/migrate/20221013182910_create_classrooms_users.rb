@@ -1,7 +1,14 @@
-# frozen_string_literal: true
-
-class DeviseCreateUsers < ActiveRecord::Migration[7.0]
+class CreateClassroomsUsers < ActiveRecord::Migration[7.0]
   def change
+    create_table :classrooms do |t|
+      t.string :name
+      t.string :code
+      t.boolean :enabled
+      t.integer :professor_id
+
+      t.timestamps
+    end
+
     create_table :users do |t|
       ## Database authenticatable
       t.string :email,              null: false, default: ""
@@ -45,5 +52,10 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
     add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
+
+    create_table :classrooms_users, id: false do |t|
+      t.belongs_to :classroom
+      t.belongs_to :user
+    end
   end
 end
