@@ -1,0 +1,2 @@
+class CloseEndedQuestion < ApplicationRecord
+end

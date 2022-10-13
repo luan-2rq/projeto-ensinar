@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyText
+  difficulty: MyString
+  alternative_a: MyText
+  alternative_b: MyText
+  alternative_c: MyText
+  alternative_d: MyText
+  correct_alternative: 1
+
+two:
+  description: MyText
+  difficulty: MyString
+  alternative_a: MyText
+  alternative_b: MyText
+  alternative_c: MyText
+  alternative_d: MyText
+  correct_alternative: 1
