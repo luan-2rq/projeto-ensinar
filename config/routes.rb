@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :classrooms
   resources :exams
   devise_for :users, path: 'users' , :controllers => {:registrations => "registrations"} 
 
