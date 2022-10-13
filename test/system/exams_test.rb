@@ -16,6 +16,7 @@ class ExamsTest < ApplicationSystemTestCase
 
     fill_in "Description", with: @exam.description
     fill_in "Due date", with: @exam.due_date
+    check "Duration" if @exam.duration
     fill_in "Name", with: @exam.name
     fill_in "Start date", with: @exam.start_date
     fill_in "Time limit", with: @exam.time_limit
@@ -31,6 +32,7 @@ class ExamsTest < ApplicationSystemTestCase
 
     fill_in "Description", with: @exam.description
     fill_in "Due date", with: @exam.due_date
+    check "Duration" if @exam.duration
     fill_in "Name", with: @exam.name
     fill_in "Start date", with: @exam.start_date
     fill_in "Time limit", with: @exam.time_limit

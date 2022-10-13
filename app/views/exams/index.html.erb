@@ -1,8 +1,4 @@
-<%=render 'layouts/navbar' %>
-
-<p style="color: green"><%= notice %></p>
-
-<h1>Exams</h1>
+<%= render 'layouts/footer' %>
 
 <div id="exams">
   <% @exams.each do |exam| %>
@@ -15,4 +11,4 @@
 
 <%= link_to "New exam", new_exam_path %>
 
-<%= render 'layouts/footer' %>
+<%= render 'layouts/navbar' %>

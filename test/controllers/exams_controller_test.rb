@@ -17,7 +17,7 @@ class ExamsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create exam" do
     assert_difference("Exam.count") do
-      post exams_url, params: { exam: { description: @exam.description, due_date: @exam.due_date, name: @exam.name, start_date: @exam.start_date, time_limit: @exam.time_limit } }
+      post exams_url, params: { exam: { description: @exam.description, due_date: @exam.due_date, duration: @exam.duration, name: @exam.name, start_date: @exam.start_date, time_limit: @exam.time_limit } }
     end
 
     assert_redirected_to exam_url(Exam.last)
@@ -34,7 +34,7 @@ class ExamsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update exam" do
-    patch exam_url(@exam), params: { exam: { description: @exam.description, due_date: @exam.due_date, name: @exam.name, start_date: @exam.start_date, time_limit: @exam.time_limit } }
+    patch exam_url(@exam), params: { exam: { description: @exam.description, due_date: @exam.due_date, duration: @exam.duration, name: @exam.name, start_date: @exam.start_date, time_limit: @exam.time_limit } }
     assert_redirected_to exam_url(@exam)
   end
 
