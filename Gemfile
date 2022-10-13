@@ -75,3 +75,5 @@ end
 
 gem "devise-i18n", "~> 1.10"
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'sass-rails'
+
