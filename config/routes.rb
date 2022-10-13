@@ -1,16 +1,19 @@
 Rails.application.routes.draw do
-  devise_for :users, path: 'users' 
+  resources :exams
+  devise_for :users, path: 'users' , :controllers => {:registrations => "registrations"} 
 
   devise_scope :user do
+    get 'login', to: 'devise/sessions#new'
+    get 'signup', to: 'devise/registrations#new'
     authenticated :user do
-      root 'home#index', as: :authenticated_root
+      root 'exams#index', as: :authenticated_root
     end
 
     unauthenticated do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
   end
-  resources :exams
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
