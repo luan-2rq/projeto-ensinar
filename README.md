@@ -29,13 +29,9 @@ Rails Version - 7.0.4
 
 É recomendado que o ambiente de desenvolvimento utilizado seja um sistema unix based, pois a instalação do framework Ruby on Rails é mais fácil em sistemas do tipo. Após a instalação do ruby e do rails nas versões especificicadas, basta rodar os seguintes comandos para ter um ambiente de desenvolvimento funcional:
 
-1. Estando na pasta raiz do projeto, execute este comando:
-  $bundle install
-Desta forma todas as gems necessárias serão instaladas na sua máquina.
+1. Estando na pasta raiz do projeto, execute este comando: $bundle install. Desta forma todas as gems necessárias serão instaladas na sua máquina.
 
-2. Pronto, agora caso queira rodar o servidor web para testar a aplicação, basta digitar este comando:
-  $rails s
- Através da porta 3000 no ip de loopback(127.0.0.1) será possível acessar a aplicação.
+2. Pronto, agora caso queira rodar o servidor web para testar a aplicação, basta digitar este comando: $rails server. Através da porta 3000 no ip de loopback(127.0.0.1) será possível acessar a aplicação.
 
 ## Deploy
 
