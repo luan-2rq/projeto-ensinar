@@ -1,13 +1,37 @@
 <%= render 'layouts/footer' %>
 
-<div id="exams">
-  <% @exams.each do |exam| %>
-    <%= render exam %>
-    <p>
-      <%= link_to "Show this exam", exam %>
-    </p>
-  <% end %>
+<div class="container">
+    <div class="row">
+        <% @exams.each do |exam| %>
+            <div class="col-12 mb-5">
+                <div class="card p-5">
+                    <div class="row">
+                        <div class="col-9">
+                            <h5 class="card-title"><%= exam.name %></h5>
+                        </div>
+                        <div class="col-3">
+                            <p>Data de Vencimento: <%= exam.due_date %></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <p><%= exam.description %></h5>
+                        </div>
+                        <div class="col-3">
+                            <p>Questões: 12</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="d-flex flex-row-reverse">
+                            <%= link_to "Visualizar", exam, class: "btn btn-primary"%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
 </div>
+
 
 <%= link_to "New exam", new_exam_path %>
 
