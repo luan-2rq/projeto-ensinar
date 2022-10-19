@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_200256) do
     t.datetime "start_date"
     t.datetime "due_date"
     t.boolean "duration"
-    t.bigint "time_limit"
+    t.integer "time_limit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["classroom_id"], name: "index_exams_on_classroom_id"
@@ -72,8 +72,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_200256) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "name", default: "", null: false
-    t.string "type"
-    t.string "status"
+    t.string "profile"
+    t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

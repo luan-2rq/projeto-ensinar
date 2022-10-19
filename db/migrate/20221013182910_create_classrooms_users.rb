@@ -41,8 +41,8 @@ class CreateClassroomsUsers < ActiveRecord::Migration[7.0]
 
       ## Aditional Information
       t.string :name, null: false, default: ""
-      t.string :type
-      t.string :status
+      t.string :profile
+      t.boolean :status
 
 
       t.timestamps null: false
