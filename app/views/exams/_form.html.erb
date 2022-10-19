@@ -1,5 +1,6 @@
 <%= form_with(model: exam) do |form| %>
-  <% if exam.errors.any? %>
+  <div class="row">
+    <% if exam.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(exam.errors.count, "error") %> prohibited this exam from being saved:</h2>
 
@@ -9,39 +10,41 @@
         <% end %>
       </ul>
     </div>
-  <% end %>
+    <% end %>
 
-  <div>
-    <%= form.label :Exam_Title, style: "display: block" %>
-    <%= form.text_area :Exam_Title %>
-  </div>
+    <div class="col-12 mb-3">
+        <%= form.label :name, "Título", style: "display: block",  class: 'form-label' %>
+        <%= form.text_field :name, class: 'form-control' %>
+    </div>
 
-  <div>
-    <%= form.label :Exam_description, style: "display: block" %>
-    <%= form.text_area :Exam_description %>
-  </div>
+    <div class="col-12 mb-3">
+        <%= form.label :description, "Descrição", style: "display: block",  class: 'form-label' %>
+        <%= form.text_area :description, class: 'form-control' %>
+    </div>
 
-  <div>
-    <%= form.label :start_date, style: "display: block" %>
-    <%= form.datetime_field :start_date %>
-  </div>
+    <div class="col-md-6 mb-3">
+        <%= form.label :start_date, "Data de Início", style: "display: block",  class: 'form-label' %>
+        <%= form.datetime_field :start_date, class: 'form-control' %>
+    </div>
 
-  <div>
-    <%= form.label :due_date, style: "display: block" %>
-    <%= form.datetime_field :due_date %>
-  </div>
+    <div class="col-md-6 mb-3">
+        <%= form.label :due_date, "Data de Término", style: "display: block",  class: 'form-label' %>
+        <%= form.datetime_field :due_date, class: 'form-control' %>
+    </div>
 
-  <div>
-    <%= form.label :duration, style: "display: block" %>
-    <%= form.check_box :duration %>
-  </div>
+    <div class="col-md-6 mb-3 pt-4">
+        <%= form.check_box :duration, class: 'form-check-input' %>
+        <%= form.label :duration, "Duração", class: 'form-check-label' %>
+    </div>
 
-  <div>
-    <%= form.label :time_limit, style: "display: block" %>
-    <%= form.number_field :time_limit %>
-  </div>
+    <div class="col-md-6 mb-3">
+        <%= form.label :time_limit, "Tempo Limite", style: "display: block",  class: 'form-label' %>
+        <%= form.number_field :time_limit, class: 'form-control' %>
+    </div>
 
-  <div>
-    <%= form.submit %>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-danger me-md-2" type="button">Cancelar</button>
+        <button class="btn btn-primary" type="submit">Salvar</button>
+    </div>
   </div>
 <% end %>

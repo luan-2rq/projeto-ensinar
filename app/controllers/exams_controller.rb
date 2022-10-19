@@ -22,6 +22,8 @@ class ExamsController < ApplicationController
   # POST /exams or /exams.json
   def create
     @exam = Exam.new(exam_params)
+    classroom_id = Classroom.where(name: 'Classe Padrão').pick(:id)
+    @exam.classroom_id = classroom_id
 
     respond_to do |format|
       if @exam.save
