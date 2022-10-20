@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :close_ended_questions
+  resources :open_ended_questions
   resources :classrooms
   resources :exams
   devise_for :users, path: 'users' , :controllers => {:registrations => "registrations"} 

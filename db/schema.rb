@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_200256) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_19_190923) do
   create_table "classrooms", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -27,29 +27,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_200256) do
     t.index ["user_id"], name: "index_classrooms_users_on_user_id"
   end
 
-  create_table "close_ended_questions", force: :cascade do |t|
-    t.integer "exam_id"
-    t.text "description"
-    t.string "difficulty"
-    t.text "alternative_a"
-    t.text "alternative_b"
-    t.text "alternative_c"
-    t.text "alternative_d"
-    t.integer "correct_alternative"
+  create_table "close_ended_questions", id: false, force: :cascade do |t|
+    t.integer "question_id", null: false
+    t.json "alternatives"
+    t.string "correct_alternative"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["exam_id"], name: "index_close_ended_questions_on_exam_id"
-  end
-
-  create_table "close_ended_replies", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "exam_id"
-    t.integer "reply"
-    t.boolean "correct"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["exam_id"], name: "index_close_ended_replies_on_exam_id"
-    t.index ["user_id"], name: "index_close_ended_replies_on_user_id"
+    t.index ["question_id"], name: "index_close_ended_questions_on_question_id"
   end
 
   create_table "exams", force: :cascade do |t|
@@ -59,10 +43,25 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_200256) do
     t.datetime "start_date"
     t.datetime "due_date"
     t.boolean "duration"
-    t.integer "time_limit"
+    t.bigint "time_limit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["classroom_id"], name: "index_exams_on_classroom_id"
+  end
+
+  create_table "open_ended_questions", id: false, force: :cascade do |t|
+    t.integer "question_id", null: false
+    t.string "possible_reply"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_open_ended_questions_on_question_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text "description"
+    t.integer "difficulty", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -80,8 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_200256) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "close_ended_questions", "exams"
-  add_foreign_key "close_ended_replies", "exams"
-  add_foreign_key "close_ended_replies", "users"
+  add_foreign_key "close_ended_questions", "questions"
   add_foreign_key "exams", "classrooms"
+  add_foreign_key "open_ended_questions", "questions"
 end
