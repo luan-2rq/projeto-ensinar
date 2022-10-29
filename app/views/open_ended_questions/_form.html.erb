@@ -1,0 +1,30 @@
+<%= form_with(model: open_ended_question) do |form| %>
+  <div class="row">
+    <% if open_ended_question.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(open_ended_question.errors.count, "error") %> prohibited this open_ended_question from being saved:</h2>
+
+      <ul>
+        <% open_ended_question.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+
+    <div class="col-12 mb-3">
+        <%= form.label :description, "Descrição", style: "display: block",  class: 'form-label' %>
+        <%= form.text_area :description, class: 'form-control' %>
+    </div>
+
+    <div class="col-12 mb-3">
+        <%= form.label :possible_reply, "Resposta correta", style: "display: block",  class: 'form-label' %>
+        <%= form.text_area :name, class: 'form-control' %>
+    </div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <%= link_to 'Cancelar', url_for(:back), class: "btn btn-danger" %>
+        <button class="btn btn-primary" type="submit">Salvar</button>
+    </div>
+  </div>
+<% end %>
