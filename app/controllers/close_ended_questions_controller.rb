@@ -3,7 +3,8 @@ class CloseEndedQuestionsController < ApplicationController
 
   # GET /close_ended_questions or /close_ended_questions.json
   def index
-    @close_ended_questions = CloseEndedQuestion.all
+    @close_ended_questions = CloseEndedQuestion.joins(:question)
+      .select(:alternatives, :correct_alternative, :'questions.id', :'questions.description', :'questions.difficulty')
   end
 
   # GET /close_ended_questions/1 or /close_ended_questions/1.json
@@ -21,11 +22,17 @@ class CloseEndedQuestionsController < ApplicationController
 
   # POST /close_ended_questions or /close_ended_questions.json
   def create
-    @close_ended_question = CloseEndedQuestion.new(close_ended_question_params)
+    data = {}
+    data.isClosed = true
+    data.description = close_ended_question_params[:description]
+    data.difficulty = 0
+    data.correct_alternative = close_ended_question_params[:correct_alternative]
+    data.alternatives = { 'a' => data[:alt_a], 'b' => data[:alt_b], 'c' => data[:alt_c], 'd' => data[:alt_d] }
+    @question = Question.new(data)
 
     respond_to do |format|
-      if @close_ended_question.save
-        format.html { redirect_to close_ended_question_url(@close_ended_question), notice: "Close ended question was successfully created." }
+      if @question.save
+        format.html { redirect_to action: 'show', id: @question.id, notice: "Close ended question was successfully created." }
         format.json { render :show, status: :created, location: @close_ended_question }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -58,13 +65,13 @@ class CloseEndedQuestionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_close_ended_question
-      @close_ended_question = CloseEndedQuestion.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_close_ended_question
+    @close_ended_question = CloseEndedQuestion.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def close_ended_question_params
-      params.require(:close_ended_question).permit(:description, :difficulty, :alternative_a, :alternative_b, :alternative_c, :alternative_d, :correct_alternative)
-    end
+  # Only allow a list of trusted parameters through.
+  def close_ended_question_params
+    params.require(:close_ended_question).permit(:description, :difficulty, :alternatives, :correct_alternative, :alt_a, :alt_b, :alt_c, :alt_d)
+  end
 end

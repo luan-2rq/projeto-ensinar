@@ -1,19 +1,19 @@
-<div id="<%= dom_id close_ended_question %>">
+<div id="<%= dom_id item %>">
   <p>
     <strong>Pergunta:</strong>
-    <%= close_ended_question.description %>
+    <%= item.description %>
   </p>
 
   <p>
     <strong>Alternativas:</strong><br>
-    <% close_ended_question.alternatives.each do |alternative| %>
+    <% item.alternatives.each do |alternative| %>
         <%= alternative[0] %> <%= alternative[1] %><br>
     <% end %>
   </p>
 
   <p>
     <strong>Alternativa correta:</strong>
-    <%= close_ended_question.correct_alternative %>
+    <%= item.correct_alternative %>
   </p>
 
 </div>

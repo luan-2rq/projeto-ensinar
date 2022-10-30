@@ -1,0 +1,6 @@
+<div id="open_ended_questions">
+    <h1>Questões abertas</h1>
+  <% @questions.each do |question| %>
+    <%= render "open_ended_question", item: question %>
+  <% end %>
+</div>
