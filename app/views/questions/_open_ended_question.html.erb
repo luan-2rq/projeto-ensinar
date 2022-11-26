@@ -1,0 +1,12 @@
+<div id="<%= dom_id item %>">
+  <p>
+    <strong>Pergunta:</strong>
+    <%= item.description %>
+  </p>
+
+  <p>
+    <strong>Resposta correta:</strong>
+  </p>
+  <textarea id="<%= item.id %>" name="right_answer"><%= item.possible_reply %></textarea>
+
+</div>

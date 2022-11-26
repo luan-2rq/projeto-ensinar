@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
-  resources :close_ended_questions
+  # resources :close_ended_questions
+  # resources :open_ended_questions
+  get 'questions/close_ended', to: 'questions#index_close_ended'
+  get 'questions/close_ended/new', to: 'questions#new_close_ended'
+  get 'questions/close_ended/:id', to: 'questions#show_close_ended'
+  post 'questions/close_ended', to: 'questions#create_close_ended'
+  get 'questions/open_ended', to: 'questions#index_open_ended'
+  get 'questions/open_ended/new', to: 'questions#new_open_ended'
+  get 'questions/open_ended/:id', to: 'questions#show_open_ended'
+  post 'questions/open_ended', to: 'questions#create_open_ended'
+
+  resources :questions
   resources :classrooms
   resources :exams
   devise_for :users, path: 'users' , :controllers => {:registrations => "registrations"} 

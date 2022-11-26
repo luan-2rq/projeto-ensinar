@@ -65,6 +65,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_200256) do
     t.index ["classroom_id"], name: "index_exams_on_classroom_id"
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.text "description"
+    t.integer "difficulty", default: 0
+    t.boolean "isClosed"
+    t.json "alternatives"
+    t.string "correct_alternative"
+    t.string "possible_reply"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
