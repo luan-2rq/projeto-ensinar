@@ -1,0 +1,36 @@
+<!-- Navbar -->
+<nav class="navbar bg-light">
+<div class="container-fluid">
+  <div class="container-fluid d-flex flex-row justify-content-between">
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand center" href="#">Dev-Ops</a>
+    <%= link_to 'Create exam', new_exam_path %>
+  </div>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item border-dark">
+          <a class="nav-link active center" aria-current="page" href="#">Exams</a>
+        </li>
+        <li class="list-group-item border-dark">
+          <a class="nav-link center" href="#">Grades</a>
+        </li>
+      </ul>
+
+      <%= button_to "Log out", destroy_user_session_path, method: :delete %>
+      
+      <%= button_to "Deletar usuário", user_registration_path, method: :delete %>
+
+      Professor
+    </div>
+  </div>
+</div>
+</nav>
+<!-- Navbar -->

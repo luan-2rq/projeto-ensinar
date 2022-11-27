@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   resources :close_ended_questions
   resources :classrooms
+
   resources :exams
+  post '/join-exam', to: 'exams#join_exam'
+
   devise_for :users, path: 'users' , :controllers => {:registrations => "registrations"} 
 
   devise_scope :user do

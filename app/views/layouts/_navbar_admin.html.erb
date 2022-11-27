@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="navbar bg-light fixed-top">
+<nav class="navbar bg-light">
 <div class="container-fluid">
   <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
     aria-controls="offcanvasNavbar">
@@ -16,12 +16,18 @@
         <li class="list-group-item border-dark">
           <a class="nav-link active center" aria-current="page" href="#">Exams</a>
         </li>
-        <li class="list-group-item border-dark">
+        <!-- <li class="list-group-item border-dark">
           <a class="nav-link center" href="#">Grades</a>
-        </li>
+        </li> -->
       </ul>
+
+      <%= button_to "Log out", destroy_user_session_path, method: :delete %>
+
+      <%= button_to "Deletar usuário", user_registration_path, method: :delete %>
+
+      Admin
     </div>
   </div>
-</div>
+</div>s
 </nav>
 <!-- Navbar -->

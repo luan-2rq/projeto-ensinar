@@ -3,11 +3,12 @@ class ClassroomsController < ApplicationController
 
   # GET /classrooms or /classrooms.json
   def index
-    @classrooms = Classroom.all
+    @classrooms = current_user.classrooms
   end
 
   # GET /classrooms/1 or /classrooms/1.json
   def show
+
   end
 
   # GET /classrooms/new
@@ -17,6 +18,7 @@ class ClassroomsController < ApplicationController
 
   # GET /classrooms/1/edit
   def edit
+
   end
 
   # POST /classrooms or /classrooms.json
@@ -65,6 +67,6 @@ class ClassroomsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def classroom_params
-      params.require(:classroom).permit(:name, :code, :enabled, :professor_id)
+      params.require(:classroom).permit(:name, :code, :enabled, :professor_id, :description)
     end
 end

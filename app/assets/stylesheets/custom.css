@@ -23,6 +23,19 @@
     height: 100%;
 }
 
+.popup{
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #333;
+  min-width: 320px;
+  position: fixed;
+  left: 50%;
+  padding: 24px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 5px solid rgb(0, 153, 255);
+}
+
 /* Add padding to the top of the body so im able to use fixed top in 
 the navbar without overlay other elements*/
 body { 
