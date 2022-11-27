@@ -1,0 +1,54 @@
+<!-- Navbar -->
+<nav class="navbar bg-light">
+<div class="container-fluid">
+  <div class="container-fluid d-flex flex-row justify-content-between align-items-center">
+
+    <div style="width: 20%">
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+        aria-controls="offcanvasNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    <a class="navbar-brand center" style="width: 20%" href="#">ENSINAR<br/>PLATFORM</a>
+
+    <div class="d-flex flex-column" style="width: 20%">
+      <%= form_with url: "/join-exam", method: :post, class: "d-flex flex-row" do |form| %>
+        <%= form.label :code, "Exam code:" %>
+        <%= form.text_field :code %>
+        <%= form.submit "join" %>
+      <% end %>
+      <% if flash.any? %>
+        <% flash.each do |type, msg| %>
+          <div class="alert alert-info">
+            <%= msg %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+  <div>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item border-dark">
+          <a class="nav-link active center" aria-current="page" href="#">Exams</a>
+        </li>
+        <li class="list-group-item border-dark">
+        </li>
+      </ul>
+
+      <%= button_to "Log out", destroy_user_session_path, method: :delete %>
+      
+      <%= button_to "Deletar usuário", user_registration_path, method: :delete %>
+
+      Student
+    </div>
+  </div>
+</div>
+</nav>
+<!-- Navbar -->

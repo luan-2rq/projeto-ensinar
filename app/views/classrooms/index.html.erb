@@ -1,14 +1,22 @@
+<%= render_navbar current_user %>
+
 <p style="color: green"><%= notice %></p>
 
-<h1>Classrooms</h1>
-
-<div id="classrooms">
-  <% @classrooms.each do |classroom| %>
-    <%= render classroom %>
-    <p>
-      <%= link_to "Show this classroom", classroom %>
-    </p>
-  <% end %>
+<div class="container-fluid p-3">
+  <div class="d-flex flex-row justify-content-between align-items-center">
+    <h2>Classrooms</h2>
+    <h5>Filter</h5>
+  </div>
 </div>
 
-<%= link_to "New classroom", new_classroom_path %>
+<div class="container-fluid px-5 pt-3" id="classrooms">
+  <div class="row row-cols-2">
+    <% @classrooms.each do |classroom| %>
+      <div class="col justify-content-center">
+        <%= render 'classroom', :classroom => classroom %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+

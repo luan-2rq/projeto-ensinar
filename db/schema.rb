@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_200256) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_27_021501) do
   create_table "classrooms", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_200256) do
     t.integer "professor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
   end
 
   create_table "classrooms_users", id: false, force: :cascade do |t|
@@ -62,7 +63,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_200256) do
     t.integer "time_limit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code"
+    t.integer "user_id", null: false
     t.index ["classroom_id"], name: "index_exams_on_classroom_id"
+    t.index ["user_id"], name: "index_exams_on_user_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -87,6 +91,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_200256) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.string "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -95,4 +101,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_200256) do
   add_foreign_key "close_ended_replies", "exams"
   add_foreign_key "close_ended_replies", "users"
   add_foreign_key "exams", "classrooms"
+  add_foreign_key "exams", "users"
 end

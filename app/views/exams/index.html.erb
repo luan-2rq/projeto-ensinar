@@ -1,9 +1,21 @@
-<%= render 'layouts/footer' %>
 
-<div class="container">
-    <div class="row">
-        <% @exams.each do |exam| %>
-            <div class="col-12 mb-5">
+<!-- Assigning default values for local variables -->
+
+<%= render_navbar current_user %>
+
+<p style="color: green"><%= notice %></p>
+
+<div class="container-fluid p-3">
+  <div class="d-flex flex-row justify-content-start align-items-center">
+    <h2 class="ps-3">Exams</h2>
+  </div>
+</div>
+
+<div class="container-fluid justify-content-center px-5 pt-3" id="exams">
+    <% if @exams.any? %>
+        <div class="row row-cols-2">
+            <% @exams.each do |exam| %>
+            <div class="col justify-content-center">
                 <div class="card p-5">
                     <div class="row">
                         <div class="col-9">
@@ -18,7 +30,11 @@
                             <p><%= exam.description %></h5>
                         </div>
                         <div class="col-3">
+                            <!-- To do: Adicionar numero real de questoes -->
                             <p>Questões: 12</h5>
+
+                            <p style="font-weight: bold;">Code: <%= exam.code %></p>
+
                         </div>
                     </div>
                     <div class="row">
@@ -28,11 +44,15 @@
                     </div>
                 </div>
             </div>
-        <% end %>
-    </div>
+            <% end %>
+        </div>
+    <% else %>
+
+        <h5 style="color: red">There aren't exams to be shown!</h5>
+
+    <% end %>
+
+
 </div>
 
-
-<%= link_to "New exam", new_exam_path %>
-
-<%= render 'layouts/navbar' %>
+<%= render 'layouts/footer' %>

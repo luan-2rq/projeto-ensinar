@@ -3,7 +3,7 @@ class ExamsController < ApplicationController
 
   # GET /exams or /exams.json
   def index
-    @exams = Exam.all
+    @exams = current_user.exams
   end
 
   # GET /exams/1 or /exams/1.json
@@ -19,9 +19,26 @@ class ExamsController < ApplicationController
   def edit
   end
 
+  # POST /join-exam
+  def join_exam
+    exam = Exam.find_by(code: params[:code])
+    if exam && !current_user.exams.include?(exam)
+      #add classroom to user
+      user = current_user()
+      user.exams << exam
+      flash[:message] = 'Successfully joined exam!'
+      redirect_to exams_path
+    else
+      flash[:message] = 'Exam does not exist!'
+      redirect_to exams_path
+    end
+  end
+
   # POST /exams or /exams.json
   def create
-    @exam = Exam.new(exam_params)
+    params = exam_params.merge!(user_id: current_user.id)
+    puts("The params: " + params.to_s())
+    @exam = Exam.new(params)
     classroom_id = Classroom.where(name: 'Classe Padrão').pick(:id)
     @exam.classroom_id = classroom_id
 

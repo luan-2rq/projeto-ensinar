@@ -1,11 +1,11 @@
 <!-- Navbar -->
-<nav class="navbar bg-light fixed-top">
+<nav class="navbar bg-light">
 <div class="container-fluid">
   <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
     aria-controls="offcanvasNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand center" href="#">PLATAFORMA ENSINAR</a>
+  <a class="navbar-brand center" href="#">ENSINAR<br/>PLATFORM</a>
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
@@ -16,12 +16,18 @@
         <li class="list-group-item border-dark">
           <a class="nav-link active center" aria-current="page" href="#">Exams</a>
         </li>
-        <li class="list-group-item border-dark">
+        <!-- <li class="list-group-item border-dark">
           <a class="nav-link center" href="#">Grades</a>
-        </li>
+        </li> -->
       </ul>
+
+      <%= button_to "Log out", destroy_user_session_path, method: :delete %>
+
+      <%= button_to "Deletar usuário", user_registration_path, method: :delete %>
+
+      Admin
     </div>
   </div>
-</div>
+</div>s
 </nav>
 <!-- Navbar -->

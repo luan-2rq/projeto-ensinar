@@ -1,4 +1,4 @@
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f| %>
 
   <section class="vh-100">
     <div class="container py-5 h-100">
@@ -7,7 +7,7 @@
           <div class="card border border-secondary" style="border-radius: 0">
             <div class="card-body p-5 text-center">
 
-              <h3 class="mb-4">PLATAFORMA <br> ENSINAR</h3>
+              <h3 class="mb-4">ENSINAR<br/>PLATFORM</h3>
               <h5 class="mb-5">Sign In</h5>
 
               <div class="form-outline mb-4">
