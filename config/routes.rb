@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  # resources :close_ended_questions
-  # resources :open_ended_questions
   get 'questions/close_ended', to: 'questions#index_close_ended'
   get 'questions/close_ended/new', to: 'questions#new_close_ended'
   get 'questions/close_ended/:id', to: 'questions#show_close_ended'

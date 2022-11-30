@@ -11,35 +11,53 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :description, "Descrição", style: "display: block" %>
-    <%= form.text_area :description %>
+  <div class="col-12 mb-3">
+    <%= form.label :description, "Question Description", style: "display: block", class: 'form-label' %>
+    <%= form.text_area :description, class: 'form-control' %>
   </div>
 
-    <div>
-        <%= form.label :alt_a, "Alternativa A", style: "display: block" %>
-        <%= form.text_area :alt_a %>
+  <div class="row justify-content-center mb-3">
+    <div class="col-md-8 col-md-offset-4">
+        <%= form.label :alt_a, "Alternativa A", style: "display: block", class: 'form-label' %>
+        <%= form.text_area :alt_a, class: 'form-control' %>
     </div>
-    <div>
-        <%= form.label :alt_b, "Alternativa B", style: "display: block" %>
-        <%= form.text_area :alt_b %>
+  </div>
+    
+  <div class="row justify-content-center mb-3">
+    <div class="col-md-8 col-md-offset-4">
+      <%= form.label :alt_b, "Alternativa B", style: "display: block", class: 'form-label' %>
+      <%= form.text_area :alt_b, class: 'form-control' %>
     </div>
-    <div>
-        <%= form.label :alt_c, "Alternativa C", style: "display: block" %>
-        <%= form.text_area :alt_c %>
-    </div>
-    <div>
-        <%= form.label :alt_d, "Alternativa D", style: "display: block" %>
-        <%= form.text_area :alt_d %>
-    </div>
+  </div>
 
-      <div>
-        <%= form.label :correct_alternative, "Alternativa Correta", style: "display: block" %>
-        <%= form.text_field :correct_alternative %>
+  <div class="row justify-content-center mb-3">
+    <div class="col-md-8 col-md-offset-4">
+      <%= form.label :alt_c, "Alternativa C", style: "display: block", class: 'form-label' %>
+      <%= form.text_area :alt_c, class: 'form-control' %>
     </div>
+  </div>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-primary" type="submit">Adicionar questão</button>
-        <%= link_to 'Criar prova', '/exams/new', class: "btn btn-primary" %>
+  <div class="row justify-content-center mb-3">
+    <div class="col-md-8 col-md-offset-4">
+      <%= form.label :alt_d, "Alternativa D", style: "display: block", class: 'form-label' %>
+      <%= form.text_area :alt_d, class: 'form-control' %>
     </div>
+  </div>
+
+  <div class="row justify-content-center mb-3">
+    <div class="col-md-8 col-md-offset-4">
+      <%= form.label :correct_alternative, "Alternativa Correta", style: "display: block", class: 'form-label' %>
+      <%= form.text_field :correct_alternative,  class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <div>
+        <button class="btn btn-primary" type="submit" name="question_type" value="alternative">Add Alternative Question</button>
+    <button class="btn btn-primary" type="submit" name="question_type" value="essay">Add Essay Question</button>
+    </div>
+    <div>
+          <button class="btn btn-primary" type="submit" name="question_type" value="create_exam">Create Exam</button>
+    </div>
+  </div>
 <% end %>
