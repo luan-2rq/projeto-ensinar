@@ -1,9 +1,21 @@
-<h1>Nova questão</h1>
-
-<%= render "close_ended_form", question: @question %>
-
-<br>
-
-<div>
-  <%= link_to "Listagem de questões fechadas", '/questions/close_ended' %>
+<div class="container">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-6 col-lg-6">
+            <div class="border">
+                <div class="question bg-white p-3 border-bottom">
+                    <div class="d-flex flex-row justify-content-between align-items-center mcq">
+                        <h4>Exam creation</h4>
+                        <p>Question <%= @cur_question %></p>
+                    </div>
+                </div>
+                <div class="question bg-white p-3 border-bottom">
+                    <div class="flex-row align-items-center question-title">
+                        <%= render "close_ended_form", question: @question %>
+                    </div>
+                    <div class="ans ml-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<%= render 'layouts/footer' %>

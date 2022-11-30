@@ -36,19 +36,20 @@ class ExamsController < ApplicationController
 
   # POST /exams or /exams.json
   def create
+    question_type = params[:question_type]
     params = exam_params.merge!(user_id: current_user.id)
-    puts("The params: " + params.to_s())
     @exam = Exam.new(params)
     classroom_id = Classroom.where(name: 'Classe Padrão').pick(:id)
     @exam.classroom_id = classroom_id
 
-    respond_to do |format|
-      if @exam.save
-        format.html { redirect_to exam_url(@exam), notice: "Exam was successfully created." }
-        format.json { render :show, status: :created, location: @exam }
+    if @exam.valid?
+      session[:exam] = params
+      session[:exam].merge!(cur_question: 1)
+
+      if question_type == 'essay'
+        redirect_to questions_open_ended_new_path
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @exam.errors, status: :unprocessable_entity }
+        redirect_to questions_close_ended_new_path
       end
     end
   end
