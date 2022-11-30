@@ -1,9 +1,11 @@
 class QuestionsController < ApplicationController
   def new_close_ended
+    @cur_question = session[:exam]['cur_question']
     @question = Question.new
   end
 
   def new_open_ended
+    @cur_question = session[:exam]['cur_question']
     @question = Question.new
   end
 
@@ -28,13 +30,44 @@ class QuestionsController < ApplicationController
       alternatives: { 'a': params[:alt_a], 'b': params[:alt_b], 'c': params[:alt_c], 'd': params[:alt_d] } }
     @question = Question.new(data)
 
-    respond_to do |format|
-      if @question.save
-        format.html { redirect_to action: 'show_close_ended', id: @question.id, notice: 'Close ended question was successfully created.' }
-        format.json { render :show, status: :created, location: @close_ended_question }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @close_ended_question.errors, status: :unprocessable_entity }
+    if @question.valid?
+      if (!session['exam']['cur_question'].nil?)
+        cur_question = session['exam']['cur_question']
+        if (session[:questions].nil?)
+          session[:questions] = {
+            cur_question => data
+          }
+        else
+          session[:questions] = session[:questions].merge({ cur_question => data })
+        end
+        session[:exam]['cur_question'] = session[:exam]['cur_question'] + 1
+        question_type = params[:question_type]
+        if question_type == 'essay'
+          redirect_to questions_open_ended_new_path
+        elsif question_type == 'alternative'
+          redirect_to questions_close_ended_new_path
+        else
+          exam = session[:exam]
+          questions = session[:questions]
+          exam.delete('cur_question')
+          @exam = Exam.create(
+            name: exam["name"],
+            description: exam["description"],
+            start_date: exam["start_date"],
+            due_date: exam["due_date"],
+            duration: exam["duration"],
+            time_limit: exam["time_limit"],
+            user_id: exam["user_id"]
+          )
+          questions.each do |key, value|
+            value.delete('question_type')
+            value[:exam_id] = @exam.id
+            Question.create(value)
+          end
+          session.delete(:exam)
+          session.delete(:questions)
+          redirect_to exams_path
+        end
       end
     end
   end
@@ -43,13 +76,44 @@ class QuestionsController < ApplicationController
     data = { isClosed: false, description: params[:description], difficulty: 0, possible_reply: params[:possible_reply] }
     @question = Question.new(data)
 
-    respond_to do |format|
-      if @question.save
-        format.html { redirect_to action: 'show_open_ended', id: @question.id, notice: 'Open ended question was successfully created.' }
-        format.json { render :show, status: :created, location: @close_ended_question }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @close_ended_question.errors, status: :unprocessable_entity }
+    if @question.valid?
+      if (!session['exam']['cur_question'].nil?)
+        cur_question = session['exam']['cur_question']
+        if (session[:questions].nil?)
+          session[:questions] = {
+            cur_question => data
+          }
+        else
+          session[:questions] = session[:questions].merge({ cur_question => data })
+        end
+        session[:exam]['cur_question'] = session[:exam]['cur_question'] + 1
+        question_type = params[:question_type]
+        if question_type == 'essay'
+          redirect_to questions_open_ended_new_path
+        elsif question_type == 'alternative'
+          redirect_to questions_close_ended_new_path
+        else
+          exam = session[:exam]
+          questions = session[:questions]
+          exam.delete('cur_question')
+          @exam = Exam.create(
+            name: exam["name"],
+            description: exam["description"],
+            start_date: exam["start_date"],
+            due_date: exam["due_date"],
+            duration: exam["duration"],
+            time_limit: exam["time_limit"],
+            user_id: exam["user_id"]
+          )
+          questions.each do |key, value|
+            value.delete('question_type')
+            value[:exam_id] = @exam.id
+            Question.create(value)
+          end
+          session.delete(:exam)
+          session.delete(:questions)
+          redirect_to exams_path
+        end
       end
     end
   end

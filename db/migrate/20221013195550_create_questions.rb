@@ -7,6 +7,7 @@ class CreateQuestions < ActiveRecord::Migration[7.0]
       t.json :alternatives, null: true
       t.string :correct_alternative, null: true
       t.string :possible_reply, null: true
+      t.references :exam, index: true, foreign_key: { to_table: :exams }
 
       t.timestamps
     end

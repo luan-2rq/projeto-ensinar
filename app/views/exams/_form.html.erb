@@ -13,38 +13,39 @@
     <% end %>
 
     <div class="col-12 mb-3">
-        <%= form.label :name, "Título", style: "display: block",  class: 'form-label' %>
+        <%= form.label :name, "Title", style: "display: block",  class: 'form-label' %>
         <%= form.text_field :name, class: 'form-control' %>
     </div>
 
     <div class="col-12 mb-3">
-        <%= form.label :description, "Descrição", style: "display: block",  class: 'form-label' %>
+        <%= form.label :description, "Description", style: "display: block",  class: 'form-label' %>
         <%= form.text_area :description, class: 'form-control' %>
     </div>
 
     <div class="col-md-6 mb-3">
-        <%= form.label :start_date, "Data de Início", style: "display: block",  class: 'form-label' %>
+        <%= form.label :start_date, "Start date", style: "display: block",  class: 'form-label' %>
         <%= form.datetime_field :start_date, class: 'form-control' %>
     </div>
 
     <div class="col-md-6 mb-3">
-        <%= form.label :due_date, "Data de Término", style: "display: block",  class: 'form-label' %>
+        <%= form.label :due_date, "End date", style: "display: block",  class: 'form-label' %>
         <%= form.datetime_field :due_date, class: 'form-control' %>
     </div>
 
     <div class="col-md-6 mb-3 pt-4">
         <%= form.check_box :duration, class: 'form-check-input' %>
-        <%= form.label :duration, "Duração", class: 'form-check-label' %>
+        <%= form.label :duration, "Duration", class: 'form-check-label' %>
     </div>
 
     <div class="col-md-6 mb-3">
-        <%= form.label :time_limit, "Tempo Limite", style: "display: block",  class: 'form-label' %>
+        <%= form.label :time_limit, "Time limit", style: "display: block",  class: 'form-label' %>
         <%= form.number_field :time_limit, class: 'form-control' %>
     </div>
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <%= link_to 'Cancelar', url_for(:back), class: "btn btn-danger" %>
-        <button class="btn btn-primary" type="submit">Salvar</button>
+        <%= link_to 'Cancel', url_for(:back), class: "btn btn-danger" %>
+        <button class="btn btn-primary" type="submit" name="question_type" value="alternative">Add Alternative Question</button>
+        <button class="btn btn-primary" type="submit" name="question_type" value="essay">Add Essay Question</button>
     </div>
   </div>
 <% end %>
