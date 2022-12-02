@@ -1,0 +1,28 @@
+<%= render 'layouts/navbar_exam_answering' %>
+
+<h3> Question <%=session[:cur_question_index]+1%> of <%=@questions.length()%><h3>
+
+<%= form_with url: exam_answer_question_path, method: :post do |form| %>
+    <% if @questions[session[:cur_question_index]].errors.any? %>
+        <div style="color: red">
+        <h2><%= pluralize(@questions[session[:cur_question_index]].errors.count, "error") %> prohibited this close_ended_question from being saved:</h2>
+
+        <ul>
+            <% @questions[session[:cur_question_index]].errors.each do |error| %>
+            <li><%= error.full_message %></li>
+            <% end %>
+        </ul>
+        </div>
+    <% end %>
+
+    <div>
+        <h4><%=@questions[session[:cur_question_index]].description%></h4>
+    </div>
+
+    <%= form.label :alt_b, "Answer", style: "display: block" %>
+    <%= form.text_area :answer %> 
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-primary" type="submit">Next</button>
+    </div>
+<% end %>
