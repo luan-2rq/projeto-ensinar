@@ -30,7 +30,7 @@ class QuestionsController < ApplicationController
       alternatives: { 'a': params[:alt_a], 'b': params[:alt_b], 'c': params[:alt_c], 'd': params[:alt_d] } }
     @question = Question.new(data)
 
-    if @question.valid?
+    if @question.errors.messages.length() <= 1
       if (!session['exam']['cur_question'].nil?)
         cur_question = session['exam']['cur_question']
         if (session[:questions].nil?)
@@ -59,6 +59,7 @@ class QuestionsController < ApplicationController
             time_limit: exam["time_limit"],
             user_id: exam["user_id"]
           )
+          current_user.exams << @exam
           questions.each do |key, value|
             value.delete('question_type')
             value[:exam_id] = @exam.id
@@ -76,7 +77,7 @@ class QuestionsController < ApplicationController
     data = { isClosed: false, description: params[:description], difficulty: 0, possible_reply: params[:possible_reply] }
     @question = Question.new(data)
 
-    if @question.valid?
+    if @question.errors.messages.length() <= 1
       if (!session['exam']['cur_question'].nil?)
         cur_question = session['exam']['cur_question']
         if (session[:questions].nil?)
@@ -105,6 +106,7 @@ class QuestionsController < ApplicationController
             time_limit: exam["time_limit"],
             user_id: exam["user_id"]
           )
+          current_user.exams << @exam
           questions.each do |key, value|
             value.delete('question_type')
             value[:exam_id] = @exam.id

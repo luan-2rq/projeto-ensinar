@@ -13,6 +13,10 @@ Rails.application.routes.draw do
 
   resources :exams
   post '/join-exam', to: 'exams#join_exam'
+  post '/exam/:id/start', to: 'exams#start'
+  post 'exam/answer-question/:id', to: 'exams#answer_question'
+  get 'exam/close-question/:id', to: 'exams#show_close_question', as: 'exam_close_question_answer'
+  get 'exam/open-question/:id', to: 'exams#show_open_question', as: 'exam_open_question_answer'
 
   devise_for :users, path: 'users' , :controllers => {:registrations => "registrations"} 
 

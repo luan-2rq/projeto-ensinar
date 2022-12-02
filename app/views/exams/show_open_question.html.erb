@@ -1,0 +1,27 @@
+<%= render 'layouts/navbar_exam_answering' %>
+
+<h5> Question <%=params[:id].to_i+1%> of <%=@questions.length()%><h5><br/>
+
+<%= form_with url: '/exam/answer-question/' + params[:id], method: :post do |form| %>
+    <% if @questions[params[:id].to_i].errors.any? %>
+        <div style="color: red">
+        <h2><%= pluralize(@questions[params[:id]].errors.count, "error") %> prohibited this close_ended_question from being saved:</h2>
+
+        <ul>
+            <% @questions[params[:id].to_i].errors.each do |error| %>
+            <li><%= error.full_message %></li>
+            <% end %>
+        </ul>
+        </div>
+    <% end %>
+
+    <div>
+        <h4><%=@questions[params[:id].to_i].description%></h4>
+    </div>
+
+    <%= form.text_area :answer, :value => session[:replies][params[:id].to_i] ? session[:replies][params[:id].to_i]['answer'] : ""  %> 
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-primary" type="submit">Next</button>
+    </div>
+<% end %>

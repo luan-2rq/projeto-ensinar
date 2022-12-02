@@ -1,6 +1,8 @@
 class User < ApplicationRecord
-  has_many :exams
-  
+  has_many :users_exams, dependent: :destroy
+  has_many :exams, through: :users_exams
+  has_many :replies
+
   validates :name, presence:  true
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true 
   

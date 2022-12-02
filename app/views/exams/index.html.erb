@@ -22,7 +22,7 @@
                             <h5 class="card-title"><%= exam.name %></h5>
                         </div>
                         <div class="col-3">
-                            <p>Data de Vencimento: <%= exam.due_date %></h5>
+                            <p style="font-weight: bold;">Delivery date in: <%= time_ago_in_words(exam.due_date, include_seconds: true) %></h5>
                         </div>
                     </div>
                     <div class="row">
@@ -31,9 +31,9 @@
                         </div>
                         <div class="col-3">
                             <!-- To do: Adicionar numero real de questoes -->
-                            <p>Questões: 12</h5>
+                            <p>Number of Questions: <%= exam.questions.length()%></h5>
 
-                            <p style="font-weight: bold;">Code: <%= exam.code %></p>
+                            <p>Code: <%= exam.code %></p>
 
                         </div>
                     </div>
