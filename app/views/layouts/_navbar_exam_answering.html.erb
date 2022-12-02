@@ -1,10 +1,43 @@
 <nav class="navbar bg-light d-flex flex-row justify-content-between" style= "width: 100%" >
-    <%= link_to "Voltar", 'javascript:history.back()', style: "width: 25%" %>
+    <%= link_to 'Back', 'javascript:history.back()', style: "width: 25%" %>
 
-    <div style="width: 25%" class="d-flex flex-row justify-content-center"><h3>Exam Name</h3></div>
+    <div style="width: 25%" class="d-flex flex-row justify-content-center"><h3><%= @exam["name"] %></h3></div>
 
     <!-- Timer -->
-    <div style="width: 25%">
-        <p class="navbar-brand center" href="#"></p>
-    </div>
+    <div style="width: 25%" class="d-flex flex-row justify-content-center">
+        <p id="demo" style="font-weight: bold;"></p>
+    <div>
+
+    <%= javascript_tag do %>
+       
+        // Set the date we're counting down to
+        var countDownDate = new Date(<%= session[:finish_date] %> * 1000).getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the element with id="demo"
+        document.getElementById("demo").innerHTML = hours + "h "
+        + minutes + "m " + seconds + "s ";
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("demo").innerHTML = "EXPIRED";
+        }
+        }, 1000);
+
+     <% end %>
+ 
 </nav>

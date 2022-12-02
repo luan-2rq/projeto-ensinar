@@ -1,14 +1,14 @@
 <%= render 'layouts/navbar_exam_answering' %>
 
-<h3> Question <%=session[:cur_question_index]+1%> of <%=@questions.length()%><h3>
+<h5> Question <%=params[:id].to_i+1%> of <%=@questions.length()%><h5><br/>
 
-<%= form_with url: exam_answer_question_path, method: :post do |form| %>
-    <% if @questions[session[:cur_question_index]].errors.any? %>
+<%= form_with url: '/exam/answer-question/' + params[:id], method: :post do |form| %>
+    <% if @questions[params[:id].to_i].errors.any? %>
         <div style="color: red">
-        <h2><%= pluralize(@questions[session[:cur_question_index]].errors.count, "error") %> prohibited this close_ended_question from being saved:</h2>
+        <h2><%= pluralize(@questions[params[:id]].errors.count, "error") %> prohibited this close_ended_question from being saved:</h2>
 
         <ul>
-            <% @questions[session[:cur_question_index]].errors.each do |error| %>
+            <% @questions[params[:id].to_i].errors.each do |error| %>
             <li><%= error.full_message %></li>
             <% end %>
         </ul>
@@ -16,11 +16,10 @@
     <% end %>
 
     <div>
-        <h4><%=@questions[session[:cur_question_index]].description%></h4>
+        <h4><%=@questions[params[:id].to_i].description%></h4>
     </div>
 
-    <%= form.label :alt_b, "Answer", style: "display: block" %>
-    <%= form.text_area :answer %> 
+    <%= form.text_area :answer, :value => session[:replies][params[:id].to_i] ? session[:replies][params[:id].to_i]['answer'] : ""  %> 
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button class="btn btn-primary" type="submit">Next</button>
