@@ -1,6 +1,7 @@
 class Exam < ApplicationRecord
     before_create :create_unique_identifier
-    belongs_to :user, dependent: :destroy
+    has_many :users_exams, dependent: :destroy
+    has_many :users, through: :users_exam
     has_many :questions, dependent: :destroy
 
     def create_unique_identifier

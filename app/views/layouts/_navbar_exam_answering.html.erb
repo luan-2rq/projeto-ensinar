@@ -1,11 +1,16 @@
-<nav class="navbar bg-light d-flex flex-row justify-content-between" style= "width: 100%" >
-    <%= link_to 'Back', 'javascript:history.back()', style: "width: 25%" %>
+<nav class="navbar bg-white shadow d-flex flex-row justify-content-between" style= "width: 100%" >
+    <div style = "width: 25%;" class="mx-3">
+        <%= link_to 'javascript:history.back()' do %>
+            <i class = "fa fa-angle-left" style="font-size: 3em;"> </i>
+        <% end %>
+    </div>
 
-    <div style="width: 25%" class="d-flex flex-row justify-content-center"><h3><%= @exam["name"] %></h3></div>
+    <div style="width: 25%" class="d-flex flex-row justify-content-center align-items-center"><h5 style="color: #18A0FB;"> Question <%=params[:id].to_i+1%> of <%=@questions.length()%><h5></div>
 
     <!-- Timer -->
     <div style="width: 25%" class="d-flex flex-row justify-content-center">
-        <p id="demo" style="font-weight: bold;"></p>
+         <p style="color: #18A0FB;">Remaining Time:  </p>
+         <p id="demo" style="font-weight: bold; color: #18A0FB;" class="align-self-center"></p>
     <div>
 
     <%= javascript_tag do %>

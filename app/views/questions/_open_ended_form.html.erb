@@ -12,20 +12,20 @@
   <% end %>
 
   <div class="col-12 mb-3">
-    <%= form.label :description, "Question Description", style: "display: block", class: 'form-label' %>
-    <%= form.text_area :description, class: 'form-control' %>
+    <%= form.label :description, "Question Description", style: "display: block; color: #18A0FB;", class: 'form-label' %>
+    <%= form.text_area :description, class:"form-control mb-2 mr-sm-2 me-2 shadow", placeholder: "Question", style: "background-color: #EAF8FF", rows: "3" %>
   </div>
 
     <div class="row justify-content-center mb-3">
       <div class="col-md-10 col-md-offset-4">
-        <%= form.label :possible_reply, "Correct Answer", style: "display: block", class: 'form-label' %>
-        <%= form.text_field :possible_reply, class: 'form-control' %>
+        <%= form.label :possible_reply, "Correct Answer", style: "display: block; color: #18A0FB;", class: 'form-label' %>
+        <%= form.text_area :possible_reply, class:"form-control mb-2 mr-sm-2 me-2 shadow", placeholder: "Correct Answer", style: "background-color: #EAF8FF", rows: "15" %>
       </div>
     </div>
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <button class="btn btn-primary" type="submit" name="question_type" value="alternative">Add Alternative Question</button>
-      <button class="btn btn-primary" type="submit" name="question_type" value="essay">Add Essay Question</button>
-      <button class="btn btn-primary" type="submit" name="question_type" value="create_exam">Create Exam</button>
+      <button class="btn" type="submit" name="question_type" value="alternative" style = "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none;">Add Alternative Question</button>
+      <button class="btn" type="submit" name="question_type" value="essay" style = "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none;">Add Essay Question</button>
+      <button class="btn" type="submit" name="question_type" value="create_exam" style = "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none;">Create Exam</button>
     </div>
 <% end %>

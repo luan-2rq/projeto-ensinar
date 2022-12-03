@@ -12,52 +12,27 @@
   <% end %>
 
   <div class="col-12 mb-3">
-    <%= form.label :description, "Question Description", style: "display: block", class: 'form-label' %>
-    <%= form.text_area :description, class: 'form-control' %>
+    <%= form.label :description, "Question Description", style: "display: block; color: #18A0FB;", class: 'form-label' %>
+    <%= form.text_area :description, class:"form-control mb-2 mr-sm-2 me-2 shadow", placeholder: "Question", style: "background-color: #EAF8FF", rows: "3" %>
   </div>
 
-  <div class="row justify-content-center mb-3">
-    <div class="col-md-8 col-md-offset-4">
-        <%= form.label :alt_a, "Alternativa A", style: "display: block", class: 'form-label' %>
-        <%= form.text_area :alt_a, class: 'form-control' %>
-    </div>
-  </div>
-    
-  <div class="row justify-content-center mb-3">
-    <div class="col-md-8 col-md-offset-4">
-      <%= form.label :alt_b, "Alternativa B", style: "display: block", class: 'form-label' %>
-      <%= form.text_area :alt_b, class: 'form-control' %>
-    </div>
-  </div>
+  <% alts = {alt_a: 'a', alt_b: 'b', alt_c: 'c', alt_d: 'd'} %>
+  <% alts.each do |key, value|  %>
+      <div class="d-flex flex-column justify-content-center mb-3 mx-5">
+        <div class="d-flex flex-row justify-content-start align-items-start col-md-8 col-md-offset-4">
+          <%= radio_button_tag :correct_alternative, value, false, class: "form-check-input mx-2", type: "radio", style: "transform: scale(1.5);" %>
+          <%= form.label key, "Alternativa " + value.upcase, style: "display: block; color: #18A0FB;", class: 'form-label mx-2' %>
+        </div>
+        <%= form.text_area key, class:"form-control mb-2 mr-sm-2 me-2 shadow", placeholder: "Description", style: "background-color: #EAF8FF", rows: "3" %>
+      </div>
+  <% end %>
 
-  <div class="row justify-content-center mb-3">
-    <div class="col-md-8 col-md-offset-4">
-      <%= form.label :alt_c, "Alternativa C", style: "display: block", class: 'form-label' %>
-      <%= form.text_area :alt_c, class: 'form-control' %>
-    </div>
-  </div>
-
-  <div class="row justify-content-center mb-3">
-    <div class="col-md-8 col-md-offset-4">
-      <%= form.label :alt_d, "Alternativa D", style: "display: block", class: 'form-label' %>
-      <%= form.text_area :alt_d, class: 'form-control' %>
-    </div>
-  </div>
-
-  <div class="row justify-content-center mb-3">
-    <div class="col-md-8 col-md-offset-4">
-      <%= form.label :correct_alternative, "Alternativa Correta", style: "display: block", class: 'form-label' %>
-      <%= form.text_field :correct_alternative,  class: 'form-control' %>
-    </div>
-  </div>
-
-  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+    <h5 style="color: #18A0FB;"> Select the correct alternative. </h5>
     <div>
-        <button class="btn btn-primary" type="submit" name="question_type" value="alternative">Add Alternative Question</button>
-    <button class="btn btn-primary" type="submit" name="question_type" value="essay">Add Essay Question</button>
-    </div>
-    <div>
-          <button class="btn btn-primary" type="submit" name="question_type" value="create_exam">Create Exam</button>
+      <button class="btn btn-primary" type="submit" name="question_type" value="alternative" style = "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none;">Add Alternative Question</button>
+      <button class="btn btn-primary" type="submit" name="question_type" value="essay" style = "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none;">Add Essay Question</button>
+      <button class="btn btn-primary" type="submit" name="question_type" value="create_exam" style = "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none;">Create Exam</button>
     </div>
   </div>
 <% end %>

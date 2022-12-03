@@ -1,33 +1,28 @@
-<div id="<%= dom_id exam %>">
-  <p>
-    <strong>Título:</strong>
-    <%= exam.name %>
-  </p>
+<div class="d-flex flex-column mt-5"id="<%= dom_id exam %>">
 
-  <p>
-    <strong>Descrição:</strong>
-    <%= exam.description %>
-  </p>
+  <div class="d-flex flex-row justify-content-between mx-5">
+    <h3 style="margin: 0; color: #18A0FB;">
+      <%= exam.name %>
+    </h3>
+    
+    <p style="margin: 0; color: #18A0FB;">
+      <strong>Delivery date in:</strong>
+      <%= time_ago_in_words(exam.due_date, include_seconds: true) %>
+    </p>
+  </div>
 
-  <p>
-    <strong>Data de Início:</strong>
-    <%= exam.start_date %>
-  </p>
+  <hr class="mx-5"/>
+  
+  <div class="d-flex flex-row justify-content-between mx-5 px-3">
+     <p style="color: #18A0FB;"><strong>Number of Questions:</strong> <%= exam.questions.length()%></p>
+     <p style="color: #18A0FB;"><strong>Time limit:</strong> <%= exam.time_limit %> hour</p>
+  </div>
 
-  <p>
-    <strong>Data de Vencimento:</strong>
-    <%= exam.due_date %>
-  </p>
-
-  <p>
-    <strong>Duração:</strong>
-    <%= exam.duration %>
-  </p>
-
-  <p>
-    <strong>Tempo Limite:</strong>
-    <%= exam.time_limit %>
-  </p>
+  <div class="d-flex flex-row justify-content-between mx-5 mt-3 px-3">
+    <p style="color: #18A0FB;">
+      <%= exam.description %>
+    </p>
+  </div>
 
 </div>
 
