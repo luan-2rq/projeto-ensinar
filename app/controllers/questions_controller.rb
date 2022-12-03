@@ -67,6 +67,8 @@ class QuestionsController < ApplicationController
           end
           session.delete(:exam)
           session.delete(:questions)
+          session[:exam_created] = true
+          session[:exam_code] = @exam.code
           redirect_to exams_path
         end
       end
