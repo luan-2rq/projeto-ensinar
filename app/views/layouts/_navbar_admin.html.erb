@@ -1,12 +1,19 @@
 <!-- Navbar -->
-<nav class="navbar bg-light">
+<nav class="navbar bg-white shadow">
 <div class="container-fluid">
-  <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-    aria-controls="offcanvasNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand center" href="#">ENSINAR<br/>PLATFORM</a>
-  <%= link_to 'Create exam', new_exam_path %>
+  <div style="width: 25%">
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+
+  <a style="width: 25%" class="navbar-brand center" href="#">ENSINAR<br/>PLATFORM</a>
+
+  <div class="d-flex flex-row justify-content-end" style="width: 25%">
+    <%= link_to 'Create exam', new_exam_path, class: "btn", style: "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none;" %>
+  </div>
+
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
@@ -22,11 +29,11 @@
         </li> -->
       </ul>
 
-      <%= button_to "Log out", destroy_user_session_path, method: :delete %>
-
-      <%= button_to "Deletar usuário", user_registration_path, method: :delete %>
-
-      Admin
+      <div class="d-flex flex-column justify-content-center align-items-center mx-2 mw-100">
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn mb-2 shadow", style: "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none; width:100%;" %>
+        
+        <%= button_to "Deletar usuário", user_registration_path, method: :delete, class: "btn mb-2 shadow", style: "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none; width:100%;" %>
+      <div>
     </div>
   </div>
 </div>

@@ -1,6 +1,13 @@
 <%= render 'layouts/navbar_exam_answering' %>
 
-<h5> Question <%=params[:id].to_i+1%> of <%=@questions.length()%><h5><br/>
+<div class="mt-5 mx-3">
+    <h5 class="mx-5 my-0 py-0" style="color: #18A0FB;"> Question <%=params[:id].to_i+1%><h5>
+    <hr class="mx-5 py-0"/>
+
+    <div class="mx-5 px-3 mb-5 mt-3">
+        <h4 style="color: #18A0FB;"><%=@questions[params[:id].to_i].description%></h4>
+    </div>
+</div>
 
 <%= form_with url: '/exam/answer-question/' + params[:id], method: :post do |form| %>
     <% if @questions[params[:id].to_i].errors.any? %>
@@ -15,13 +22,15 @@
         </div>
     <% end %>
 
-    <div>
-        <h4><%=@questions[params[:id].to_i].description%></h4>
+    <div class="mx-5 px-5">
+        <%= form.text_area :answer, :value => session[:replies][params[:id].to_i] ? session[:replies][params[:id].to_i]['answer'] : "", class:"form-control mb-2 mr-sm-2 me-2 shadow", placeholder: "Answer", style: "background-color: #EAF8FF", rows: "17" %>
     </div>
 
-    <%= form.text_area :answer, :value => session[:replies][params[:id].to_i] ? session[:replies][params[:id].to_i]['answer'] : ""  %> 
-
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-primary" type="submit">Next</button>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end mx-5 px-5 mt-5">
+        <% if params[:id].to_i != @questions.length() %>
+            <button class="btn" type="submit" style = "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none;">Next</button>
+        <% else %>
+             <button class="btn" type="submit" style = "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none;">Submit</button>
+        <% end %>
     </div>
 <% end %>

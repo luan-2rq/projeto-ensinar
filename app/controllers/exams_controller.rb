@@ -12,6 +12,9 @@ class ExamsController < ApplicationController
 
   # GET /exams/1 or /exams/1.json
   def show
+    #@user_exam = current_user.users_exams.where(:exam_id => params[:id])
+    #puts('user exam')
+    #puts(@user_exam)
   end
 
   # GET /exams/new
@@ -30,10 +33,11 @@ class ExamsController < ApplicationController
       #add classroom to user
       user = current_user()
       user.exams << exam
-      flash[:message] = 'Successfully joined exam!'
+      #user.users_exams.find_by(exam_id: params[:id]).update({answered => false, corrected => false})
+      flash[:alert] = 'Successfully joined exam!'
       redirect_to exams_path
     else
-      flash[:message] = 'Exam does not exist!'
+      flash[:error] = 'Exam does not exist!'
       redirect_to exams_path
     end
   end
@@ -100,6 +104,9 @@ class ExamsController < ApplicationController
     session[:finish_date] = Time.current().advance(hours: @exam['time_limit']).to_f
     session[:replies] = []
 
+    #users_exam = current_user.users_exams.find_by(exam_id: params[:id])
+    #users_exam.update({start_date => Date.current()})
+
     current_question = @questions[0]
 
     if current_question.isClosed
@@ -110,27 +117,30 @@ class ExamsController < ApplicationController
   end
 
   def answer_question
-    load_data(session[:exam_id])
-
-    current_question = @questions[params[:id].to_i]
     
-    reply = Reply.new
-    reply.user_id = current_user.id
-    reply.question_id = current_question.id
-    reply.exam_id = @exam.id
-    reply.answer = params[:answer]
+    load_data(session[:exam_id])
+    if params[:answer]
 
-    if current_question.isClosed
-      if current_question.correct_alternative.downcase == params[:answer].downcase
-        reply.correct = true
-      else
-        reply.correct = false
+      current_question = @questions[params[:id].to_i]
+      
+      reply = Reply.new
+      reply.user_id = current_user.id
+      reply.question_id = current_question.id
+      reply.exam_id = @exam.id
+      reply.answer = params[:answer]
+
+      if current_question.isClosed
+        if current_question.correct_alternative.downcase == params[:answer].downcase
+          reply.correct = true
+        else
+          reply.correct = false
+        end
+      else 
+        reply.grade = 0
       end
-    else 
-      reply.grade = 0
-    end
 
-    session[:replies][params[:id].to_i] = reply
+      session[:replies][params[:id].to_i] = reply
+    end
     
     if params[:id].to_i+1 < @questions.length()
       current_question = @questions[params[:id].to_i+1]
@@ -144,8 +154,16 @@ class ExamsController < ApplicationController
       session[:replies].each do |rep|
         
         Reply.new({user_id: rep['user_id'], question_id: rep['question_id'], exam_id: rep['exam_id'], answer: rep['answer'], correct: rep['correct'], grade: rep['grade']}).save()
+        #users_exam = current_user.users_exams.find_by(exam_id: rep['exam_id'])
+        #users_exam.update({answered => true})
       end
     end
+  end
+
+  def close_code_popup
+    session.delete(:exam_created)
+    session.delete(:exam_code)
+    redirect_to exams_path
   end
 
   private

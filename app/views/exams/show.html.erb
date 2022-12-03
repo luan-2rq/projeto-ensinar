@@ -1,11 +1,19 @@
-<p style="color: green"><%= notice %></p>
+<%= render 'layouts/navbar_exam' %>
 
 <%= render @exam %>
 
-<div>
-  <%= link_to "Edit this exam", edit_exam_path(@exam) %> |
-  <%= link_to "Back to exams", exams_path %>
+<% if current_user.id == @exam.user_id %>
+  <div class="d-flex flex-row justify-content-start mx-5 px-3 pb-5" style="margin-top: 20%">
+    <%= button_to "Delete exam", @exam, class: "btn mb-2 shadow", style: "font-weight: bold; color: #ffffff; background-color: #ed242e; border: none;", method: :delete  %> 
+    <!-- <%= link_to "Edit this exam", edit_exam_path(@exam) %> -->
+  </div>
+<% else %>
+  <div class="d-flex flex-row justify-content-end mx-5 px-3 pb-5" style="margin-top: 20%">
+    <% if true %>
+      <%= button_to "Start exam", { action: "start" }, :class => "btn mb-2 shadow", :style => "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none; width:100%;" %>
+    <% else %>
+      <strong><p>Grade:</p></strong>
+    <% end %>
+  </div>
+<% end %>
 
-  <%= button_to "Destroy this exam", @exam, method: :delete %>
-  <%= button_to "Start exam", action: "start" %>
-</div>

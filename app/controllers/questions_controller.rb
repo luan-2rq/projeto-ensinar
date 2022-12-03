@@ -29,7 +29,7 @@ class QuestionsController < ApplicationController
     data = { isClosed: true, description: params[:description], difficulty: 0, correct_alternative: params[:correct_alternative],
       alternatives: { 'a': params[:alt_a], 'b': params[:alt_b], 'c': params[:alt_c], 'd': params[:alt_d] } }
     @question = Question.new(data)
-
+    @question.valid?
     if @question.errors.messages.length() <= 1
       if (!session['exam']['cur_question'].nil?)
         cur_question = session['exam']['cur_question']
@@ -76,7 +76,7 @@ class QuestionsController < ApplicationController
   def create_open_ended
     data = { isClosed: false, description: params[:description], difficulty: 0, possible_reply: params[:possible_reply] }
     @question = Question.new(data)
-
+    @question.valid?
     if @question.errors.messages.length() <= 1
       if (!session['exam']['cur_question'].nil?)
         cur_question = session['exam']['cur_question']
@@ -114,6 +114,8 @@ class QuestionsController < ApplicationController
           end
           session.delete(:exam)
           session.delete(:questions)
+          session[:exam_created] = true
+          session[:exam_code] = @exam.code
           redirect_to exams_path
         end
       end

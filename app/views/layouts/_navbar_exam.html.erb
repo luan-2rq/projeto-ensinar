@@ -1,0 +1,23 @@
+<nav class="navbar bg-white shadow d-flex flex-row justify-content-between align-items-center" style= "width: 100%" >
+  
+    <div style = "width: 25%;" class="mx-3">
+        <%= link_to 'javascript:history.back()' do %>
+            <i class = "fa fa-angle-left" style="font-size: 3em;"> </i>
+        <% end %>
+    </div>
+
+    <div style="width: 25%" class="d-flex flex-row justify-content-center">
+        <% if request.path == '/exams/new' || request.path == '/questions/close_ended/new' || request.path == '/questions/open_ended/new' %>
+            <p style="font-weight: bold; color: #18A0FB;">EXAM CREATION</p>
+        <% else %>
+            <a class="navbar-brand center" href="#">ENSINAR<br/>PLATFORM</a>
+        <% end %>
+    </div>
+
+    <div class="d-flex flex-form justify-content-end mx-3" style="width: 25%;">
+        <% if request.path == '/questions/close_ended/new' || request.path == '/questions/open_ended/new' %>
+            <p style="color: #18A0FB;" >Question <%= @cur_question %></p>
+        <% end %>
+    </div>
+ 
+</nav>

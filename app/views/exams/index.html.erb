@@ -3,43 +3,36 @@
 
 <%= render_navbar current_user %>
 
-<p style="color: green"><%= notice %></p>
-
 <div class="container-fluid p-3">
   <div class="d-flex flex-row justify-content-start align-items-center">
-    <h2 class="ps-3">Exams</h2>
+    <h4 class="ps-4 pt-5">Exams</h4>
   </div>
 </div>
 
 <div class="container-fluid justify-content-center px-5 pt-3" id="exams">
     <% if @exams.any? %>
-        <div class="row row-cols-2">
+        <div class="row row-cols-1">
             <% @exams.each do |exam| %>
             <div class="col justify-content-center">
-                <div class="card p-5">
-                    <div class="row">
-                        <div class="col-9">
-                            <h5 class="card-title"><%= exam.name %></h5>
-                        </div>
-                        <div class="col-3">
-                            <p style="font-weight: bold;">Delivery date in: <%= time_ago_in_words(exam.due_date, include_seconds: true) %></h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-9">
-                            <p><%= exam.description %></h5>
-                        </div>
-                        <div class="col-3">
-                            <!-- To do: Adicionar numero real de questoes -->
-                            <p>Number of Questions: <%= exam.questions.length()%></h5>
+                <div class="card shadow p-5 m-2">
+                    <div class="d-flex flex-column justify-content-center p-1">
 
-                            <p>Code: <%= exam.code %></p>
+                        <div class="d-flex flex-row justify-content-between">
+                            <div class="text-wrap d-flex flex-column" style="width: 70%">
+                                <h5 style="color: #18A0FB;" class="card-title"><%= exam.name %></h5>
+                                <p style="color: #18A0FB;" class="text-wrap"><%= exam.description %></p>
+                            </div>
 
+                            <div class="d-flex flex-column">
+                                    <p style="color: #18A0FB;"><strong>Delivery date in:</strong> <%= time_ago_in_words(exam.due_date, include_seconds: true) %></p>
+                                    <p style="color: #18A0FB;"><strong>Time limit:</strong> <%= exam.time_limit %> hour</p>
+                                    <p style="color: #18A0FB;"><strong>Number of Questions:</strong> <%= exam.questions.length()%></p>
+                                    <p style="color: #18A0FB;"><strong>Code:</strong> <%= exam.code %></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="d-flex flex-row-reverse">
-                            <%= link_to "Visualizar", exam, class: "btn btn-primary"%>
+                    
+                        <div class="d-flex flex-row justify-content-end mt-3">
+                            <%= link_to "Visualizar", exam, class: "btn", style: "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none;"%>
                         </div>
                     </div>
                 </div>
@@ -48,11 +41,30 @@
         </div>
     <% else %>
 
-        <h5 style="color: red">There aren't exams to be shown!</h5>
+        <p style="color: red; margin: 0;">There aren't exams to be shown!</p><br/>
+        <p style="margin: 0; padding: 0;">Join an exam inserting the exam code above.</p>
 
     <% end %>
 
 
 </div>
-
-<%= render 'layouts/footer' %>
+<!-- if current_user.role == 'professor' --> 
+<% if session[:exam_created] %>
+    <div class="popup shadow d-flex flex-column justify-content-center m-3">
+        <div class="d-flex flex-row justify-content-between mb-3">
+            <div></div>
+            <h5 style="color: #18A0FB;">Exam Code</h5>
+            <%= link_to exam_close_code_popup_path do %>
+                <i class = "fa fa-window-close" style="font-size: 1.2em; " aria-hidden="true"> </i>
+            <% end %>
+        </div>
+        <div class="mt-3 px-5">
+            <div class="d-flex flex-row justify-content-center align-items-center copy-field px-5 mx-5 mb-5">
+            <strong> <p class="my-2" style="color: #18A0FB; padding: 0; margin: 0;"><%= session[:exam_code] %></p> </strong>
+            </div>
+        </div>
+        <div class="px-5">
+            <p style="color: #18A0FB;">Share this code with students, so they can join your exam.</p>
+        </div>
+    </div>
+<% end %>

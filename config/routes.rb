@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post 'exam/answer-question/:id', to: 'exams#answer_question'
   get 'exam/close-question/:id', to: 'exams#show_close_question', as: 'exam_close_question_answer'
   get 'exam/open-question/:id', to: 'exams#show_open_question', as: 'exam_open_question_answer'
+  get 'exam/close-code-popup', to: 'exams#close_code_popup'
 
   devise_for :users, path: 'users' , :controllers => {:registrations => "registrations"} 
 

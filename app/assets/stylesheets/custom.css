@@ -33,13 +33,33 @@
   padding: 24px;
   top: 50%;
   transform: translate(-50%, -50%);
-  border: 5px solid rgb(0, 153, 255);
+  border: 1px solid rgb(0, 153, 255);
+}
+
+.copy-field{
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid rgb(0, 153, 255);
 }
 
 /* Add padding to the top of the body so im able to use fixed top in 
 the navbar without overlay other elements*/
 body { 
-  
-  padding-top: 70px; 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-bottom:0;
+  width: 100%;
+  margin-top: auto;
+}
+
+hr {
+  margin-bottom: 1rem;
+  margin-top: 0;
+  border: 0;
+  border-top: 4px solid rgba(24, 160, 251, 255);
 }
 

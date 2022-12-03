@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="navbar bg-light">
+<nav class="navbar bg-white shadow">
 <div class="container-fluid">
   <div class="container-fluid d-flex flex-row justify-content-between align-items-center">
 
@@ -13,16 +13,21 @@
     <a class="navbar-brand center" style="width: 20%" href="#">ENSINAR<br/>PLATFORM</a>
 
     <div class="d-flex flex-column" style="width: 20%">
-      <%= form_with url: "/join-exam", method: :post, class: "d-flex flex-row" do |form| %>
-        <%= form.label :code, "Exam code:" %>
-        <%= form.text_field :code %>
-        <%= form.submit "join" %>
+      <%= form_with url: "/join-exam", method: :post, class: "d-flex flex-row align-items-center" do |form| %>
+        <%= form.text_field :code, type: "text", class:"form-control mb-2 mr-sm-2 me-2 shadow", placeholder: "Exam code", style: "background-color: #EAF8FF" %>
+        <%= form.submit "Join", class: "btn mb-2 shadow", style: "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none; width:100%;" %>
       <% end %>
       <% if flash.any? %>
         <% flash.each do |type, msg| %>
-          <div class="alert alert-info">
-            <%= msg %>
-          </div>
+          <% if type == 'error' %>
+            <div class="alert alert-danger">
+              <%= msg %>
+            </div>
+          <% elsif type == 'alert'%>
+            <div class="alert alert-info">
+              <%= msg %>
+            </div>
+          <% end %>
         <% end %>
       <% end %>
     </div>
@@ -42,11 +47,12 @@
         </li>
       </ul>
 
-      <%= button_to "Log out", destroy_user_session_path, method: :delete %>
-      
-      <%= button_to "Deletar usuário", user_registration_path, method: :delete %>
+      <div class="d-flex flex-column justify-content-center align-items-center mx-2 mw-100">
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn mb-2 shadow", style: "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none; width:100%;" %>
+        
+        <%= button_to "Deletar usuário", user_registration_path, method: :delete, class: "btn mb-2 shadow", style: "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none; width:100%;" %>
+      <div>
 
-      Student
     </div>
   </div>
 </div>
