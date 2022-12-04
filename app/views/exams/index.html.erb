@@ -15,11 +15,12 @@
             <% @exams.each do |exam| %>
             <div class="col justify-content-center">
                 <div class="card shadow p-5 m-2">
+
                     <div class="d-flex flex-column justify-content-center p-1">
 
-                        <div class="d-flex flex-row justify-content-between">
-                            <div class="text-wrap d-flex flex-column me-3" style="width: 70%">
-                                <h5 style="color: #18A0FB;" class="card-title"><%= exam.name %></h5>
+                        <div class="responsive-flex-card">
+                            <div class="text-wrap d-flex flex-column" style="width: 70%">
+                                <h5 style="color: #18A0FB;" class="card-title text-wrap"><%= exam.name %></h5>
                                 <p style="color: #18A0FB;" class="text-wrap"><%= exam.description %></p>
                             </div>
 
@@ -58,12 +59,10 @@
                 <i class = "fa fa-window-close" style="font-size: 1.2em; " aria-hidden="true"> </i>
             <% end %>
         </div>
-        <div class="mt-3 px-5">
-            <div class="d-flex flex-row justify-content-center align-items-center copy-field px-5 mx-5 mb-5">
+        <div class="d-flex flex-row justify-content-center align-items-center copy-field px-5 mx-5 mb-5">
             <strong> <p class="my-2" style="color: #18A0FB; padding: 0; margin: 0;"><%= session[:exam_code] %></p> </strong>
-            </div>
         </div>
-        <div class="px-5">
+        <div class="d-flex flex-row justify-content-center px-5">
             <p style="color: #18A0FB;">Share this code with students, so they can join your exam.</p>
         </div>
     </div>

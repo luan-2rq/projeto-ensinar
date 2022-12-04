@@ -8,7 +8,7 @@
     <div style="width: 25%" class="d-flex flex-row justify-content-center align-items-center"><h5 style="color: #18A0FB;"> Question <%=params[:id].to_i+1%> of <%=@questions.length()%><h5></div>
 
     <!-- Timer -->
-    <div style="width: 25%" class="d-flex flex-row justify-content-center">
+    <div style="width: 25%" class="responsive-flex-center">
          <p style="font-weight: bold; color: #18A0FB;">Remaining Time:  </p>
          <p id="demo" style="font-weight: bold; color: #18A0FB;" class="align-self-center"></p>
     <div>
@@ -16,14 +16,13 @@
     <%= javascript_tag do %>
        
         // Set the date we're counting down to
-        var countDownDate = new Date(<%= session[:finish_date] %> * 1000).getTime();
+        var countDownDate = new Date(<%= session[:time_to_finish] %> * 1000).getTime();
 
         // Update the count down every 1 second
         var x = setInterval(function() {
 
         // Get today's date and time
         var now = new Date().getTime();
-
         // Find the distance between now and the count down date
         var distance = countDownDate - now;
 

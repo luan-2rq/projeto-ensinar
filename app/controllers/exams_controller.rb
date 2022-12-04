@@ -87,8 +87,8 @@ class ExamsController < ApplicationController
     
     if exam_attempt && !exam_attempt.answered
       load_data(session[:exam_id])
-      close_date = exam_attempt.start_date.advance(hour: @exam.time_limit)
-      if close_date.future?
+      close_date = exam_attempt.start_date.advance(hours: @exam.time_limit)
+      if !close_date.future?
         redirect_to exams_path
       end
     else
@@ -101,8 +101,8 @@ class ExamsController < ApplicationController
     
     if exam_attempt && !exam_attempt.answered
       load_data(session[:exam_id])
-      close_date = exam_attempt.start_date.advance(hour: @exam.time_limit)
-      if close_date.future?
+      close_date = exam_attempt.start_date.advance(hours: @exam.time_limit)
+      if !close_date.future?
         redirect_to exams_path
       end
     else
@@ -122,12 +122,14 @@ class ExamsController < ApplicationController
 
       load_data(params[:id])
       session[:exam_id] = params[:id].to_i
-      session[:finish_date] = Time.current().advance(hours: @exam['time_limit']).to_f
       session[:replies] = []
 
       exam_attempt = current_user.exam_attempts.find_by(exam_id: @exam.id)
-      exam_attempt.update(start_date: DateTime.current(), answered: false, corrected: false, grade: 0)
-
+      if !exam_attempt.start_date
+        exam_attempt.update(start_date: DateTime.current(), answered: false, corrected: false, grade: 0)
+      end
+      close_date = exam_attempt.start_date.advance(hours: @exam.time_limit)
+      session[:time_to_finish] = Time.current().to_i + (close_date.to_time - Time.current()).to_i
       current_question = @questions[0]
 
       if current_question.isClosed

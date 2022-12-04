@@ -3,17 +3,17 @@
 <div class="container-fluid">
   <div class="container-fluid d-flex flex-row justify-content-between align-items-center">
 
-    <div style="width: 20%">
+    <div style="width: 30%">
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
         aria-controls="offcanvasNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
 
-    <a class="navbar-brand center" style="width: 20%" href="#">ENSINAR<br/>PLATFORM</a>
+    <a class="navbar-brand center" style="width: 30%" href="#">ENSINAR<br/>PLATFORM</a>
 
-    <div class="d-flex flex-column" style="width: 20%">
-      <%= form_with url: "/join-exam", method: :post, class: "d-flex flex-row align-items-center" do |form| %>
+    <div class="responsive-flex-center" style="width: 32%">
+      <%= form_with url: "/join-exam", method: :post, class: "responsive-flex-center" do |form| %>
         <%= form.text_field :code, type: "text", class:"form-control mb-2 mr-sm-2 me-2 shadow", placeholder: "Exam code", style: "background-color: #EAF8FF" %>
         <%= form.submit "Join", class: "btn mb-2 shadow", style: "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none; width:100%;" %>
       <% end %>
