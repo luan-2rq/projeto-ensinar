@@ -1,11 +1,11 @@
 <div class="d-flex flex-column mt-5"id="<%= dom_id exam %>">
 
   <div class="d-flex flex-row justify-content-between mx-5">
-    <h3 style="margin: 0; color: #18A0FB;">
+    <h3 style="margin: 0; color: #18A0FB;" class="text-wrap">
       <%= exam.name %>
     </h3>
     
-    <p style="margin: 0; color: #18A0FB;">
+    <p style="margin: 0; color: #18A0FB;" class="responsive-flex-center">
       <strong>Delivery date in:</strong>
       <%= time_ago_in_words(exam.due_date, include_seconds: true) %>
     </p>
