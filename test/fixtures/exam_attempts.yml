@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: one
+  exam_id: one
+  start_date: 2022-12-03
+  answered: false
+  corrected: false
+
+two:
+  user_id: two
+  exam_id: two
+  start_date: 2022-12-03
+  answered: false
+  corrected: false

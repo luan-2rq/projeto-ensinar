@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :users_exams, dependent: :destroy
-  has_many :exams, through: :users_exams
+  has_many :exam_attempts, dependent: :destroy
+  has_many :exams, through: :exam_attempts
   has_many :replies
 
   validates :name, presence:  true
