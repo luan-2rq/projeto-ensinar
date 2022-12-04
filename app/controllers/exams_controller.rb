@@ -12,9 +12,7 @@ class ExamsController < ApplicationController
 
   # GET /exams/1 or /exams/1.json
   def show
-    #@user_exam = current_user.users_exams.where(:exam_id => params[:id])
-    #puts('user exam')
-    #puts(@user_exam)
+    @exam_attempt = current_user.exam_attempts.find_by(exam_id: params[:id])
   end
 
   # GET /exams/new
@@ -33,7 +31,6 @@ class ExamsController < ApplicationController
       #add classroom to user
       user = current_user()
       user.exams << exam
-      #user.users_exams.find_by(exam_id: params[:id]).update({answered => false, corrected => false})
       flash[:alert] = 'Successfully joined exam!'
       redirect_to exams_path
     else
@@ -86,11 +83,31 @@ class ExamsController < ApplicationController
   end
 
   def show_open_question
-    load_data(session[:exam_id])
+    exam_attempt = current_user.exam_attempts.find_by(exam_id: session[:exam_id])
+    
+    if exam_attempt && !exam_attempt.answered
+      load_data(session[:exam_id])
+      close_date = exam_attempt.start_date.advance(hour: @exam.time_limit)
+      if close_date.future?
+        redirect_to exams_path
+      end
+    else
+      redirect_to exams_path
+    end
   end
 
   def show_close_question
-    load_data(session[:exam_id])
+    exam_attempt = current_user.exam_attempts.find_by(exam_id: session[:exam_id])
+    
+    if exam_attempt && !exam_attempt.answered
+      load_data(session[:exam_id])
+      close_date = exam_attempt.start_date.advance(hour: @exam.time_limit)
+      if close_date.future?
+        redirect_to exams_path
+      end
+    else
+      redirect_to exams_path
+    end
   end
 
   def load_data(id)
@@ -99,64 +116,81 @@ class ExamsController < ApplicationController
   end
 
   def start
-    load_data(params[:id])
-    session[:exam_id] = params[:id].to_i
-    session[:finish_date] = Time.current().advance(hours: @exam['time_limit']).to_f
-    session[:replies] = []
+    exam_attempt = current_user.exam_attempts.find_by(exam_id: params[:id])
 
-    #users_exam = current_user.users_exams.find_by(exam_id: params[:id])
-    #users_exam.update({start_date => Date.current()})
+    if exam_attempt && !exam_attempt.answered
 
-    current_question = @questions[0]
+      load_data(params[:id])
+      session[:exam_id] = params[:id].to_i
+      session[:finish_date] = Time.current().advance(hours: @exam['time_limit']).to_f
+      session[:replies] = []
 
-    if current_question.isClosed
-      redirect_to '/exam/close-question/0'  
-    else
-      redirect_to '/exam/open-question/0'
+      exam_attempt = current_user.exam_attempts.find_by(exam_id: @exam.id)
+      exam_attempt.update(start_date: DateTime.current(), answered: false, corrected: false, grade: 0)
+
+      current_question = @questions[0]
+
+      if current_question.isClosed
+        redirect_to '/exam/close-question/0'  
+      else
+        redirect_to '/exam/open-question/0'
+      end
     end
   end
 
   def answer_question
-    
-    load_data(session[:exam_id])
-    if params[:answer]
+    exam_attempt = current_user.exam_attempts.find_by(exam_id: session[:exam_id])
+    if exam_attempt && !exam_attempt.answered
+      load_data(session[:exam_id])
+      close_date = exam_attempt.start_date.advance(hours: @exam.time_limit)
+      if close_date.future?
+        if params[:answer]
 
-      current_question = @questions[params[:id].to_i]
-      
-      reply = Reply.new
-      reply.user_id = current_user.id
-      reply.question_id = current_question.id
-      reply.exam_id = @exam.id
-      reply.answer = params[:answer]
+          current_question = @questions[params[:id].to_i]
+          
+          reply = Reply.new
+          reply.user_id = current_user.id
+          reply.question_id = current_question.id
+          reply.exam_id = @exam.id
+          reply.answer = params[:answer]
 
-      if current_question.isClosed
-        if current_question.correct_alternative.downcase == params[:answer].downcase
-          reply.correct = true
-        else
-          reply.correct = false
+          if current_question.isClosed
+            if current_question.correct_alternative.downcase == params[:answer].downcase
+              reply.correct = true
+            else
+              reply.correct = false
+            end
+          else 
+            reply.grade = 0
+          end
+
+          session[:replies][params[:id].to_i] = reply
         end
-      else 
-        reply.grade = 0
-      end
+        
+        if params[:id].to_i+1 < @questions.length()
+          current_question = @questions[params[:id].to_i+1]
+          if current_question.isClosed
+            redirect_to '/exam/close-question/' + (params[:id].to_i+1).to_s
+          else
+            redirect_to '/exam/open-question/' + (params[:id].to_i+1).to_s
+          end
+        else
+          session[:replies].each do |rep|
+            
+            Reply.new({user_id: rep['user_id'], question_id: rep['question_id'], exam_id: rep['exam_id'], answer: rep['answer'], correct: rep['correct'], grade: rep['grade']}).save()
+          end
 
-      session[:replies][params[:id].to_i] = reply
-    end
-    
-    if params[:id].to_i+1 < @questions.length()
-      current_question = @questions[params[:id].to_i+1]
-      if current_question.isClosed
-        redirect_to '/exam/close-question/' + (params[:id].to_i+1).to_s
+          exam_attempt = current_user.exam_attempts.find_by(exam_id: @exam.id)
+          exam_attempt.update(answered: true)
+
+          redirect_to exam_path(session[:exam_id])
+
+        end
       else
-        redirect_to '/exam/open-question/' + (params[:id].to_i+1).to_s
+        redirect_to exams_path
       end
     else
-      redirect_to exam_path(session[:exam_id])
-      session[:replies].each do |rep|
-        
-        Reply.new({user_id: rep['user_id'], question_id: rep['question_id'], exam_id: rep['exam_id'], answer: rep['answer'], correct: rep['correct'], grade: rep['grade']}).save()
-        #users_exam = current_user.users_exams.find_by(exam_id: rep['exam_id'])
-        #users_exam.update({answered => true})
-      end
+      redirect_to exams_path
     end
   end
 

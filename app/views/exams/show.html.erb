@@ -9,10 +9,17 @@
   </div>
 <% else %>
   <div class="d-flex flex-row justify-content-end mx-5 px-3 pb-5" style="margin-top: 20%">
-    <% if true %>
-      <%= button_to "Start exam", { action: "start" }, :class => "btn mb-2 shadow", :style => "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none; width:100%;" %>
+    <% if !@exam_attempt.answered %>
+
+      <% if @exam_attempt.start_date && !@exam_attempt.start_date.advance(hours: @exam.time_limit).future? %>
+        <strong><p style="color: #18A0FB;">Did not finish at time!</p></strong>
+      <% elsif !@exam.due_date.future? %>
+        <strong><p style="color: #18A0FB;">Due date expired!</p></strong>
+      <% else %>
+        <%= button_to "Start exam", { action: "start" }, :class => "btn mb-2 shadow", :style => "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none; width:100%;" %>
+      <% end %>
     <% else %>
-      <strong><p>Grade:</p></strong>
+      <strong><p style="color: #18A0FB;">Sent, but not yet evaluated!</p></strong>
     <% end %>
   </div>
 <% end %>
