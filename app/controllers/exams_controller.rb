@@ -12,7 +12,9 @@ class ExamsController < ApplicationController
 
   # GET /exams/1 or /exams/1.json
   def show
-    @exam_attempt = current_user.exam_attempts.find_by(exam_id: params[:id])
+    load_data(params[:id])
+    @exam_attempt = current_user.exam_attempts.find_by(exam_id: params[:id], user_id: current_user.id)
+    @exam_users = @exam.users.select { |attachment| attachment.id != current_user.id }
   end
 
   # GET /exams/new
@@ -200,6 +202,63 @@ class ExamsController < ApplicationController
     session.delete(:exam_created)
     session.delete(:exam_code)
     redirect_to exams_path
+  end
+
+  def correct_question
+    @exam_attempt = ExamAttempt.find(params[:exam_attempt_id])
+    user =  @exam_attempt.user
+
+    current_question = Question.find(params[:question_id])
+    current_reply = Reply.find_by(exam_id: @exam_attempt.exam_id, user_id: user.id, question_id: current_question.id)
+    current_reply.update(correct: params[:correct])
+    
+    @question = nil
+    @question_index = 0
+    @number_of_questions = @exam_attempt.exam.questions.length() 
+    @exam_attempt.exam.questions.each do |question|
+      @question = question
+      @question_index = @question_index + 1
+      reply = Reply.find_by(exam_id: @exam_attempt.exam_id, user_id: user.id, question_id: question.id)
+      break if !question.isClosed && reply.correct == nil
+    end
+
+    if !@question.isClosed && @question_index < @number_of_questions
+      @reply = Reply.find_by(exam_id: @exam_attempt.exam_id, user_id: user.id, question_id: @question.id)
+      redirect_to '/exams/correction/' + @exam_attempt.id.to_s
+    else
+      replies = Reply.where(exam_id: @exam_attempt.exam_id, user_id: user.id)
+      puts(replies)
+      number_of_correct = 0
+      replies.each do |reply|
+        puts(reply.correct)
+        if reply.correct
+          number_of_correct = number_of_correct + 1
+        end
+      end
+      grade = (number_of_correct.to_f / @number_of_questions.to_f) * 10
+      @exam_attempt.update(corrected: true, grade: grade)
+      redirect_to '/exams/' + @exam_attempt.exam.id.to_s
+    end
+  end
+
+  def show_correction_open_question
+    @exam_attempt = ExamAttempt.find(params[:exam_attempt_id])
+    user =  @exam_attempt.user
+    @question = nil
+    @question_index = 0
+    @number_of_questions = @exam_attempt.exam.questions.length() 
+    @exam_attempt.exam.questions.each do |question|
+      @question = question
+      @question_index = @question_index + 1
+      reply = Reply.find_by(exam_id: @exam_attempt.exam_id, user_id: user.id, question_id: question.id)
+      break if !question.isClosed && reply.correct == nil
+    end
+    @reply = nil
+    if !@question.isClosed && @question_index < @number_of_questions
+      @reply = Reply.find_by(exam_id: @exam_attempt.exam_id, user_id: user.id, question_id: @question.id)
+    else
+      redirect_to '/exams/' + @exam_attempt.exam.id.to_s
+    end
   end
 
   private
