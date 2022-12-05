@@ -9,6 +9,8 @@
     <div style="width: 25%" class="d-flex flex-row justify-content-center">
         <% if request.path == '/exams/new' || request.path == '/questions/close_ended/new' || request.path == '/questions/open_ended/new' %>
             <p style="font-weight: bold; color: #18A0FB;">EXAM CREATION</p>
+        <% elsif request.path.include? '/exams/correction' %>
+            <h5 style="color: #18A0FB;"> Question <%=@question_index%> of <%=@number_of_questions%><h5>
         <% else %>
             <a class="navbar-brand center" href="#">ENSINAR<br/>PLATFORM</a>
         <% end %>

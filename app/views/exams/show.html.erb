@@ -3,10 +3,41 @@
 <%= render @exam %>
 
 <% if current_user.id == @exam.user_id %>
-  <div class="d-flex flex-row justify-content-start mx-5 px-3 pb-5" style="margin-top: 20%">
+  <div class="d-flex flex-row justify-content-start mx-5 px-3">
     <!-- <%= button_to "Delete exam", @exam, class: "btn mb-2 shadow", style: "font-weight: bold; color: #ffffff; background-color: #ed242e; border: none;", method: :delete  %> -->
     <!-- <%= link_to "Edit this exam", edit_exam_path(@exam) %> -->
   </div>
+
+<% if current_user.role.downcase == "professor" && current_user.id == @exam.user_id %>
+  <div class="d-flex flex-column justify-content-start mx-5 px-5">
+   <h4> Students </h4>
+    <% @exam_users.each do |user| %>
+      <div class="col justify-content-center">
+        <div class="card shadow p-5 m-2">
+
+          <div class="d-flex flex-column justify-content-center p-1">
+            <div class="responsive-flex-card">
+              <div class="text-wrap d-flex flex-column" style="width: 70%">
+                  <h5 style="color: #18A0FB;" class="card-title text-wrap"><%= user.name %></h5>
+              </div>
+
+              <div class="d-flex flex-column justify-content-between">
+                <%= user.exam_attempts.find_by(exam_id: @exam.id, user_id: user.id).corrected %>
+                <% if user.exam_attempts.find_by(exam_id: @exam.id, user_id: user.id).corrected %>
+                  <p style="color: #18A0FB;"><strong>Grade:</strong> <%= user.exam_attempts.find_by(exam_id: @exam.id).grade %></p>
+                <% else %>
+                  <%= link_to "Correct", '/exams/correction/' + user.exam_attempts.find_by(exam_id: @exam.id).id.to_s, class: "btn", style: "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none;"%>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
 <% else %>
   <div class="d-flex flex-row justify-content-end mx-5 px-3 pb-5" style="margin-top: 20%">
     <% if !@exam_attempt.answered %>

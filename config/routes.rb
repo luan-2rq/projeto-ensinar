@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   get 'exam/open-question/:id', to: 'exams#show_open_question', as: 'exam_open_question_answer'
   get 'exam/close-code-popup', to: 'exams#close_code_popup'
 
+  get 'exams/correction/:exam_attempt_id', to: 'exams#show_correction_open_question'
+  post 'exams/correction/:exam_attempt_id/question/:question_id', to: 'exams#correct_question'
+
   devise_for :users, path: 'users' , :controllers => {:registrations => "registrations"} 
 
   devise_scope :user do
