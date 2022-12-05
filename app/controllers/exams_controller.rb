@@ -222,14 +222,15 @@ class ExamsController < ApplicationController
       break if !question.isClosed && reply.correct == nil
     end
 
-    if !@question.isClosed
+    if !@question.isClosed && @question_index < @number_of_questions
       @reply = Reply.find_by(exam_id: @exam_attempt.exam_id, user_id: user.id, question_id: @question.id)
       redirect_to '/exams/correction/' + @exam_attempt.id.to_s
     else
       replies = Reply.where(exam_id: @exam_attempt.exam_id, user_id: user.id)
-      
+      puts(replies)
       number_of_correct = 0
       replies.each do |reply|
+        puts(reply.correct)
         if reply.correct
           number_of_correct = number_of_correct + 1
         end

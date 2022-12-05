@@ -22,9 +22,8 @@
               </div>
 
               <div class="d-flex flex-column justify-content-between">
-                <%= user.exam_attempts.find_by(exam_id: @exam.id, user_id: user.id).corrected %>
                 <% if user.exam_attempts.find_by(exam_id: @exam.id, user_id: user.id).corrected %>
-                  <p style="color: #18A0FB;"><strong>Grade:</strong> <%= user.exam_attempts.find_by(exam_id: @exam.id).grade %></p>
+                  <p style="color: #18A0FB;"><strong>Grade:</strong> <%= user.exam_attempts.find_by(exam_id: @exam.id, user_id: user.id).grade %></p>
                 <% else %>
                   <%= link_to "Correct", '/exams/correction/' + user.exam_attempts.find_by(exam_id: @exam.id).id.to_s, class: "btn", style: "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none;"%>
                 <% end %>
