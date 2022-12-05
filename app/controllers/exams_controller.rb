@@ -235,7 +235,7 @@ class ExamsController < ApplicationController
           number_of_correct = number_of_correct + 1
         end
       end
-      grade = (number_of_correct / @number_of_questions) * 10
+      grade = (number_of_correct.to_f / @number_of_questions.to_f) * 10
       @exam_attempt.update(corrected: true, grade: grade)
       redirect_to '/exams/' + @exam_attempt.exam.id.to_s
     end
@@ -254,7 +254,7 @@ class ExamsController < ApplicationController
       break if !question.isClosed && reply.correct == nil
     end
     @reply = nil
-    if !@question.isClosed
+    if !@question.isClosed && @question_index < @number_of_questions
       @reply = Reply.find_by(exam_id: @exam_attempt.exam_id, user_id: user.id, question_id: @question.id)
     else
       redirect_to '/exams/' + @exam_attempt.exam.id.to_s

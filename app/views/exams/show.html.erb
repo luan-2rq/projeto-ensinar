@@ -40,7 +40,6 @@
 <% else %>
   <div class="d-flex flex-row justify-content-end mx-5 px-3 pb-5" style="margin-top: 20%">
     <% if !@exam_attempt.answered %>
-
       <% if @exam_attempt.start_date && !@exam_attempt.start_date.advance(hours: @exam.time_limit).future? %>
         <strong><p style="color: #18A0FB;">Did not finish at time!</p></strong>
       <% elsif !@exam.due_date.future? %>
@@ -49,7 +48,11 @@
         <%= button_to "Start exam", { action: "start" }, :class => "btn mb-2 shadow", :style => "font-weight: bold; color: #ffffff; background-color: #18A0FB; border: none; width:100%;" %>
       <% end %>
     <% else %>
-      <strong><p style="color: #18A0FB;">Sent, but not yet evaluated!</p></strong>
+      <% if @exam_attempt.corrected %>
+        <strong><p style="color: #18A0FB;">Grade: <%= @exam_attempt.grade %></p></strong>
+      <% else %>
+        <strong><p style="color: #18A0FB;">Sent, but not yet evaluated!</p></strong>
+      <% end %>
     <% end %>
   </div>
 <% end %>
